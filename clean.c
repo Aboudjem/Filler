@@ -42,7 +42,7 @@ void	clean_piece(t_piece *piece)
 						break ;
 				y++;
 		}
-		printf("Top Limit: [%d]\n", top_limit);
+		dprintf(2,"Top Limit: [%d]\n", top_limit);
 
 		// On cherche l'index de la premiere colonne
 		while (x < piece->width)
@@ -53,7 +53,7 @@ void	clean_piece(t_piece *piece)
 						break ;
 				x++;
 		}
-		printf("Left Limit: [%d]\n", left_limit);
+		dprintf(2,"Left Limit: [%d]\n", left_limit);
 
 		// On cherche l'index de la derniere ligne
 		while (bottom_limit > top_limit)
@@ -63,7 +63,7 @@ void	clean_piece(t_piece *piece)
 				else
 						break ;
 		}
-		printf("Bottom Limit: [%d]\n", bottom_limit);
+		dprintf(2,"Bottom Limit: [%d]\n", bottom_limit);
 
 		// On cherche l'index de la derniere colonne
 		while (right_limit > left_limit)
@@ -73,7 +73,7 @@ void	clean_piece(t_piece *piece)
 				else
 						break ;
 		}
-		printf("Right Limit: [%d]\n", right_limit);
+		dprintf(2, "Right Limit: [%d]\n", right_limit);
 
 		// J'actualise la hauteur et la largeur du puzzle dans la structure
 		piece->width = (right_limit - left_limit) + 1;

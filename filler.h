@@ -23,9 +23,24 @@ typedef struct 	s_piece
 		char	piece[100][100];
 }				t_piece;
 
+typedef struct s_pos
+{
+	char 		player;
+	char 		adv;
+	int 		pos_adv_y;
+	int 		pos_adv_x;
+	int 		pos_player_x;
+	int 		pos_player_y;
+	int 		x;
+	int 		y;
+}				t_pos;
+
 
 int		is_column_empty(t_piece piece, int column);
 int		is_line_empty(char *line);
 void	clean_piece(t_piece *piece);
-
+void	check_advers(t_map *map, t_pos *pos);
+void	check_player(t_map *map, t_pos *pos);
+void	place_piece(t_map map, t_piece piece, t_pos pos);
+void	check_place(t_map *map, t_piece piece, t_pos *pos);
 # endif
