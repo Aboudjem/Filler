@@ -35,12 +35,22 @@ typedef struct s_pos
 	int 		y;
 }				t_pos;
 
+typedef struct s_lim
+{
+	int 		top;
+	int 		bot;
+	int 		left;
+	int 		right;
+}				t_lim;
 
+void	is_possible(int y, int x, t_piece piece, t_map map);
 int		is_column_empty(t_piece piece, int column);
 int		is_line_empty(char *line);
-void	clean_piece(t_piece *piece);
+void	clean_piece(t_piece *piece, t_lim *lim);
 void	check_advers(t_map *map, t_pos *pos);
 void	check_player(t_map *map, t_pos *pos);
 void	place_piece(t_map map, t_piece piece, t_pos pos);
-void	check_place(t_map *map, t_piece piece, t_pos *pos);
+int 	check_place(t_map *map, t_piece piece, int y, int x);
+void	check_map(t_map *map, t_piece piece, t_pos *pos, t_lim lim);
+
 # endif

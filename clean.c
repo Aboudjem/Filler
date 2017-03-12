@@ -24,67 +24,68 @@ int		is_column_empty(t_piece piece, int column)
 		return (1);
 }
 
-void	clean_piece(t_piece *piece)
+void	clean_piece(t_piece *piece, t_lim *lim)
 {
+
 		int x = 0;
 		int y = 0;
-		int top_limit = 0;
-		int bottom_limit = piece->height;
-		int left_limit = 0;
-		int right_limit = piece->width - 1;
+		lim->top = 0;
+		lim->bot = piece->height;
+		lim->left = 0;
+		lim->right = piece->width - 1;
 
 		// On cherche l'index de la premiere ligne
 		while (y < piece->height)
 		{
 				if (is_line_empty(piece->piece[y]))
-						top_limit++;
+						lim->top++;
 				else
 						break ;
 				y++;
 		}
-		dprintf(2,"Top Limit: [%d]\n", top_limit);
+		dprintf(2,"Top Limit: [%d]\n", lim->top);
 
 		// On cherche l'index de la premiere colonne
 		while (x < piece->width)
 		{
 				if (is_column_empty(*piece, x))
-						left_limit++;
+						lim->left++;
 				else
 						break ;
 				x++;
 		}
-		dprintf(2,"Left Limit: [%d]\n", left_limit);
+		dprintf(2,"Left Limit: [%d]\n", lim->left);
 
 		// On cherche l'index de la derniere ligne
-		while (bottom_limit > top_limit)
+		while (lim->bot > lim->top)
 		{
-				if (is_line_empty(piece->piece[bottom_limit]))
-						bottom_limit--;
+				if (is_line_empty(piece->piece[lim->bot]))
+						lim->bot--;
 				else
 						break ;
 		}
-		dprintf(2,"Bottom Limit: [%d]\n", bottom_limit);
+		dprintf(2,"Bottom Limit: [%d]\n", lim->bot);
 
 		// On cherche l'index de la derniere colonne
-		while (right_limit > left_limit)
+		while (lim->right > lim->left)
 		{
-				if (is_column_empty(*piece, right_limit))
-						right_limit--;
+				if (is_column_empty(*piece, lim->right))
+						lim->right--;
 				else
 						break ;
 		}
-		dprintf(2, "Right Limit: [%d]\n", right_limit);
+		dprintf(2, "Right Limit: [%d]\n", lim->right);
 
 		// J'actualise la hauteur et la largeur du puzzle dans la structure
-		piece->width = (right_limit - left_limit) + 1;
-		piece->height = (bottom_limit - top_limit) + 1;
+		piece->width = (lim->right - lim->left) + 1;
+		piece->height = (lim->bot - lim->top) + 1;
 
 		// Je modifie la piece en supprimant la partie rogner
 		int i = 0;
-		int start = top_limit;
+		int start = lim->top;
 		while (i < piece->height)
 		{
-				ft_strncpy(piece->piece[i], piece->piece[start]+left_limit, piece->width);
+				ft_strncpy(piece->piece[i], piece->piece[start]+lim->left, piece->width);
 				piece->piece[i][piece->width]='\0';
 				start++;
 				i++;

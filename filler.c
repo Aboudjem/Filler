@@ -12,32 +12,39 @@
 
 #include "filler.h"
 
-void	get_map(t_map *map)
+void	get_size_map(t_map *map)
 {
-	char	*line;
+	char *line;
 	int i;
 
-	get_next_line(0, &line);
 	i = 8;
+	get_next_line(0, &line);
 	if(ft_isdigit(line[i]) == 1)
 	{
 		map->height = ft_atoi(line+i);
 		i += ft_len_int(map->height);
 	}
 	map->width = ft_atoi(line+i);
-	i =0;
+}
+
+void	get_map(t_map *map)
+{
+	char	*line;
+	int i;
+	i = 0;
+	get_size_map(map);
 	get_next_line(0, &line);
 
 	while (i < map->height)
 	{
 		get_next_line(0, &line);
 		ft_strcpy(map->map[i], line+4);
-	//	ft_putendl_fd(map.map[i], 2);
+		// ft_putendl_fd(map->map[i], 2);
 		i++;
 	}	
 }
 
-void	get_piece(t_piece *piece)
+void	get_size_piece(t_piece *piece)
 {
 	char	*line;
 	int i;
@@ -50,13 +57,20 @@ void	get_piece(t_piece *piece)
 		i += ft_len_int(piece->height);
 	}
 	piece->width = ft_atoi(line+i);
+}
 
-	i =0;
+void	get_piece(t_piece *piece)
+{
+	char	*line;
+	int i;
+	
+	i = 0;
+	get_size_piece(piece);
 	while (i < piece->height)
 	{
 		get_next_line(0, &line);
 		ft_strcpy(piece->piece[i], line);
-		//ft_putendl_fd(piece.piece[i], 2);
+		// ft_putendl_fd(piece->piece[i], 2);
 		i++;
 	}
 }
@@ -87,21 +101,9 @@ void	get_player(t_pos *pos)
 	char 	*line;
 
 	get_next_line(0, &line);
-	if (ft_strncmp(line, "$$$ exec p1", 11) == 0)
-			{
-				pos->player = 'O';
-				pos->adv = 'X';
-			}
-	else if (ft_strncmp(line, "$$$ exec p2", 11) == 0)
-			{
-				pos->player = 'X';
-				pos->adv = 'O';
-			}
-	else
-	{
-			ft_putendl_fd("Parsing Error : Can't get the player ID.", 2);
-			exit(0);
-	}
+	// dprintf(2, "[[%s]]", line);
+	pos->player = ft_strncmp(line, "$$$ exec p1", 11) == 0 ? 'O' : 'X';
+	pos->adv = pos->player == 'O' ? 'X' : 'O';
 }
 
 int		main (void)
@@ -109,22 +111,31 @@ int		main (void)
 	t_map	map;
 	t_piece piece;
 	t_pos	pos;
-
+	t_lim	lim;
 	get_player(&pos);
-	get_map(&map);
-	get_piece(&piece);
-	int i = 0;
-	debug(pos, map, piece);
-	clean_piece(&piece);
-	i = 0;
-	 while (i < piece.height)
-	 		dprintf(2, "[%s]\n", piece.piece[i++]);
-	check_advers(&map, &pos);
-	check_player(&map, &pos);
-
-	place_piece(map, piece, pos);
-
-
+	// char *line;
+	while (1)
+	{
+		// debug(pos, map, piece);
+		get_map(&map);
+		get_piece(&piece);
+		check_map(&map, piece, &pos,lim);
+		break ;
+		// is_possible(0,0,piece, map);
+		// dprintf(2, "-->[%s]<--", line);
+	}
+	// // place_piece(map, piece, pos);
+	// 	get_map(&map);
+	// 	get_piece(&piece);
+	// 	int i = 0;
+	// 	clean_piece(&piece, &lim);
+	// 	i = 0;
+	// 	// while (i < piece.height)
+	// 		// dprintf(2, "[%s]\n", piece.piece[i++]);
+	// 	check_advers(&map, &pos);
+	// 	check_player(&map, &pos);
+	// 	is_possible(0, 0, piece, map);
+	// 	check_map(&map, piece, &pos, lim);
 	strerror(2);
 	return (0);
 }
