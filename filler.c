@@ -6,7 +6,7 @@
 /*   By: aboudjem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/09 06:26:05 by aboudjem          #+#    #+#             */
-/*   Updated: 2017/03/09 08:03:25 by aboudjem         ###   ########.fr       */
+/*   Updated: 2017/03/14 00:37:56 by plisieck         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,6 @@ void	get_player(t_pos *pos)
 	char 	*line;
 
 	get_next_line(0, &line);
-	// dprintf(2, "[[%s]]", line);
 	pos->player = ft_strncmp(line, "$$$ exec p1", 11) == 0 ? 'O' : 'X';
 	pos->adv = pos->player == 'O' ? 'X' : 'O';
 }
@@ -112,30 +111,16 @@ int		main (void)
 	t_piece piece;
 	t_pos	pos;
 	t_lim	lim;
+
 	get_player(&pos);
-	// char *line;
 	while (1)
 	{
-		// debug(pos, map, piece);
+		ft_putendl_fd("LOOPING INSIDE WHILE", 2);
 		get_map(&map);
 		get_piece(&piece);
+		//debug(pos, map, piece);
 		check_map(&map, piece, &pos,lim);
-		break ;
-		// is_possible(0,0,piece, map);
-		// dprintf(2, "-->[%s]<--", line);
+		ft_putendl_fd("LOOPING OUTSIDE WHILE", 2);
 	}
-	// // place_piece(map, piece, pos);
-	// 	get_map(&map);
-	// 	get_piece(&piece);
-	// 	int i = 0;
-	// 	clean_piece(&piece, &lim);
-	// 	i = 0;
-	// 	// while (i < piece.height)
-	// 		// dprintf(2, "[%s]\n", piece.piece[i++]);
-	// 	check_advers(&map, &pos);
-	// 	check_player(&map, &pos);
-	// 	is_possible(0, 0, piece, map);
-	// 	check_map(&map, piece, &pos, lim);
-	strerror(2);
 	return (0);
 }
