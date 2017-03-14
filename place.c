@@ -30,29 +30,28 @@ int		can_place_piece(t_map *map, t_piece piece, int y, int x)
 	int	touch;
 	touch = 0;
 	py = 0;
+		// dprintf(2, "\n-->[%d][%d]<--\n", px, x);
 
 	while(py < piece.height)
 	{
 		px = 0;
-		while (px < piece.width)
+		while (px < piece.width && ((x+piece.width) <= map->width))
 		{
+
 			if (piece.piece[py][px] == '*')
 			{
-			//	if (map->map[py+y][px+x]!= '.')
-			//		return 0;
-				//dprintf(2, "y+py[%d] x+px[%d]\n", y+py, x+px);
 				if (map->map[y + py][x + px] == 'O')
 					touch++;
-		
-				px++;
+				else if(map->map[y + py][x + px]  == 'X')
+					return(0);
+					px++;
 			}
-			/* else if (map->map[py + y][px + x] == '.')
+			else if (piece.piece[py][px] == '.')
 			{
+				if (map->map[y + py][x + px]  == 'X')
+					return(0);
 				px++;
 			}
-			*/
-			else
-				px++;
 		}
 		py++;
 	}
@@ -85,6 +84,7 @@ void	check_map(t_map *map, t_piece piece, t_pos *pos, t_lim lim)
 		}
 		y++;
 	}
+	exit (1);
 }
 
 void	check_advers(t_map *map, t_pos *pos)

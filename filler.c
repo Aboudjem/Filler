@@ -101,7 +101,7 @@ void	get_player(t_pos *pos)
 	char 	*line;
 
 	get_next_line(0, &line);
-	pos->player = ft_strncmp(line, "$$$ exec p1", 11) == 0 ? 'O' : 'X';
+	pos->player = ft_strncmp(line, "$$ exec p1", 11) == 0 ? 'O' : 'X';
 	pos->adv = pos->player == 'O' ? 'X' : 'O';
 }
 
