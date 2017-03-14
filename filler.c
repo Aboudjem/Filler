@@ -6,7 +6,7 @@
 /*   By: aboudjem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/09 06:26:05 by aboudjem          #+#    #+#             */
-/*   Updated: 2017/03/14 00:37:56 by plisieck         ###   ########.fr       */
+/*   Updated: 2017/03/14 01:14:10 by plisieck         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,12 +115,10 @@ int		main (void)
 	get_player(&pos);
 	while (1)
 	{
-		ft_putendl_fd("LOOPING INSIDE WHILE", 2);
 		get_map(&map);
 		get_piece(&piece);
 		//debug(pos, map, piece);
 		check_map(&map, piece, &pos,lim);
-		ft_putendl_fd("LOOPING OUTSIDE WHILE", 2);
 	}
 	return (0);
 }
