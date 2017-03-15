@@ -1,0 +1,4 @@
+
+./filler_vm -f maps/map00 -p1 players/abanlin.filler -p2 players/abanlin.filler -s 7675
+
+-> Parfois la partie se termine normalement et parfois elle se termine sur une erreur.

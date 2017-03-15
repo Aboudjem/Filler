@@ -23,32 +23,30 @@ void		start(t_pos *pos, t_map map)
 	pos->pos_player_x = x;
 }
 
-int		can_place_piece(t_map *map, t_piece piece, int y, int x)
+int		can_place_piece(t_map *map, t_piece piece, int y, int x, t_pos *pos)
 {
 	int py;
 	int	px;
 	int	touch;
 	touch = 0;
 	py = 0;
-		// dprintf(2, "\n-->[%d][%d]<--\n", px, x);
 
-	while(py < piece.height)
+	while(py < piece.height && ((y+piece.height) <= map->height))
 	{
 		px = 0;
 		while (px < piece.width && ((x+piece.width) <= map->width))
 		{
-
 			if (piece.piece[py][px] == '*')
 			{
-				if (map->map[y + py][x + px] == 'O')
+				if (map->map[y + py][x + px] == pos->player)
 					touch++;
-				else if(map->map[y + py][x + px]  == 'X')
+				else if(map->map[y + py][x + px] == pos->adv)
 					return(0);
 					px++;
 			}
 			else if (piece.piece[py][px] == '.')
 			{
-				if (map->map[y + py][x + px]  == 'X')
+				if (map->map[y + py][x + px]  == pos->adv)
 					return(0);
 				px++;
 			}
@@ -61,30 +59,51 @@ int		can_place_piece(t_map *map, t_piece piece, int y, int x)
 		return(0);
 }
 
-void	check_map(t_map *map, t_piece piece, t_pos *pos, t_lim lim)
+t_lst	*add_placable(t_lst *lst, int x, int y)
+{
+	t_lst	*tmp;
+
+	tmp = malloc(sizeof(t_lst));
+	if (tmp)
+	{
+		tmp->x = x;
+		tmp->y = y;
+		tmp->next = lst;
+		tmp->end = 
+	}
+	return tmp;
+}
+
+void	print_lst(t_lst *lst)
+{
+	while(lst)
+	{
+		dprintf(2, ">----->[%d.%d]<-----<\n",lst->y, lst->x);
+		lst = lst->next;
+	}
+}
+
+t_lst	*check_map(t_map *map, t_piece piece, t_pos *pos)
 {
 	int y;
 	int x;
+	t_lst	*lst;
+
 	y = 0;
+	lst = NULL;
 	while(y < map->height)
 	{
 		x = 0;
 		while (x < map->width)
 		{
 			//dprintf(2, "MAP_WIDTH[%d] MAP_HEIGHT[%d]\n", map->width, map->height);
-			if (can_place_piece(map, piece, y, x) == 1)
-			{
-				ft_printf("%d %d\n", y, x);
-				return ;
-			}
-			else
-			{
-				x++;
-			}
+			if (can_place_piece(map, piece, y, x, pos) == 1)
+				lst = add_placable(lst, x, y);
+			x++;
 		}
 		y++;
 	}
-	exit (1);
+	return (lst);
 }
 
 void	check_advers(t_map *map, t_pos *pos)

@@ -6,7 +6,7 @@
 /*   By: aboudjem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/09 06:26:05 by aboudjem          #+#    #+#             */
-/*   Updated: 2017/03/14 01:14:10 by plisieck         ###   ########.fr       */
+/*   Updated: 2017/03/15 02:04:14 by plisieck         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ void	get_player(t_pos *pos)
 	char 	*line;
 
 	get_next_line(0, &line);
-	pos->player = ft_strncmp(line, "$$ exec p1", 11) == 0 ? 'O' : 'X';
+	pos->player = ft_strncmp(line, "$$$ exec p1", 11) == 0 ? 'O' : 'X';
 	pos->adv = pos->player == 'O' ? 'X' : 'O';
 }
 
@@ -111,6 +111,7 @@ int		main (void)
 	t_piece piece;
 	t_pos	pos;
 	t_lim	lim;
+	t_lst	*lst;
 
 	get_player(&pos);
 	while (1)
@@ -118,7 +119,12 @@ int		main (void)
 		get_map(&map);
 		get_piece(&piece);
 		//debug(pos, map, piece);
-		check_map(&map, piece, &pos,lim);
+		lst = check_map(&map, piece, &pos);
+		if (lst)
+		ft_printf("%d %d\n", lst->y, lst->x);
+		else
+			exit(1);
+		print_lst(lst);
 	}
 	return (0);
 }
