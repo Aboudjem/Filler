@@ -18,44 +18,16 @@
 // 	if (pos me > pos adv)
 // }
 
-void	check_piece()
+void	check_piece(t_lst *lst, t_piece *piece, t_map *map, t_pos *pos)
 {
-	// si la piece est + large
-	if (piece->width > piece->height)
-	{ 
-		if (pos->player == 'O')
-			get_right_x();
-		else
-			get_left_x();
-		//on place la piece large a la position la plus "extreme" 
-		// c a d la plus a gauche ou a droite selon si jss p1 ou p2
-	}
-	// si la piece est + haute
-	else if (piece->height > piece->width)
-	{ 
-		if (pos->player == 'O')
-			get_bot_y();
-		else
-			get_top_y();
-		//on place la piece haute a la position la plus "extreme"
-	}
+	t_coord top;
+	t_coord bot;
+	t_coord left;
+	t_coord right;
+	
+	top = get_top_y(lst, map);
+	left = get_left_x(lst, map);
+	bot = get_bot_y(lst, map);
+	right = get_right_x(lst, map);
+	dprintf(2, "TOP=[%d][%d]; BOT=[%d][%d]; LEFT=[%d][%d]; RIGHT=[%d][%d]\n", top.y, top.x, bot.y, bot.x, left.y, left.x, right.y, right.x);
 }
-
-
-	// pos adv(top, bot, left, right)
-	// pos me(top, bot, left, right)
-	// largeur piece
-	// longueur piece
-	
-	// 6 2
-	// 6 3
-	// 7 2
-	// 7 3
-
-	
-	
-
-
-	if(position adversaire la plus haut > ma position la plus haut)
-		algo 1;
-	else if (

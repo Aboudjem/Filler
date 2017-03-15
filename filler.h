@@ -53,6 +53,13 @@ typedef struct 	s_lst
 //	struct s_lst	*end;
 }				t_lst;
 
+
+typedef struct 	s_coord
+{
+	int	x;
+	int y;
+}				t_coord;
+
 void	is_possible(int y, int x, t_piece piece, t_map map);
 int		is_column_empty(t_piece piece, int column);
 int		is_line_empty(char *line);
@@ -63,5 +70,10 @@ void	place_piece(t_map map, t_piece piece, t_pos pos);
 int 	check_place(t_map *map, t_piece piece, int y, int x, t_pos pos);
 t_lst	*check_map(t_map *map, t_piece piece, t_pos *pos);
 void	print_lst(t_lst *lst);
+t_coord	get_top_y(t_lst *lst, t_map *map);
+t_coord	get_bot_y(t_lst *lst, t_map *map);
+t_coord	get_left_x(t_lst *lst, t_map *map);
+t_coord	get_right_x(t_lst *lst, t_map *map);
+void	check_piece(t_lst *lst, t_piece *piece, t_map *map, t_pos *pos);
 
 # endif

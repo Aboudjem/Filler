@@ -1,65 +1,79 @@
-#include "fillit.h"
+#include "filler.h"
 
-void	get_top_y()
+t_coord	get_top_y(t_lst *lst, t_map *map)
 {
-	int y = map->height;
-	int x = map->width;
-	while(lst)
-	{
-		if (lst->y < y)
+		t_coord	coord;
+		int y = map->height;
+		int x = map->width;
+		while(lst)
 		{
-			y = lst->y
-			x = lst->x
+				if (lst->y < y)
+				{
+						y = lst->y;
+						x = lst->x;
+				}
+				lst = lst->next;
 		}
-		lst = lst->next;
-	}
+		coord.x = x;
+		coord.y = y;
+		return (coord);
 }
 
-
-//recupere la coordonnee la plus en bas
-void	get_bot_y()
+t_coord	get_bot_y(t_lst *lst, t_map *map)
 {
-	int y = 0;
-	int x = 0;
-	while(lst)
-	{
-		if (lst->y > y)
+		t_coord	coord;
+		int y = 0;
+		int x = 0;
+		while(lst)
 		{
-			y = lst->y
-			x = lst->x
+				if (lst->y > y)
+				{
+						y = lst->y;
+						x = lst->x;
+				}
+				lst = lst->next;
 		}
-		lst = lst->next;
-	}
+		coord.x = x;
+		coord.y = y;
+		return (coord);
 }
 
-//recupere la coordonnee la plus a droite
-void	get_right_x()
+t_coord	get_left_x(t_lst *lst, t_map *map)
 {
-	int y = map->height;
-	int x = map->width;
-	while(lst)
-	{
-		if (lst->x < x)
+		t_coord	coord;
+		int y = map->height;
+		int x = map->width;
+		while(lst)
 		{
-			y = lst->y
-			x = lst->x
+				if (lst->x < x)
+				{
+						y = lst->y;
+						x = lst->x;
+				}
+				lst = lst->next;
 		}
-		lst = lst->next;
-	}
+		coord.x = x;
+		coord.y = y;
+		return (coord);
+
 }
 
-//recupere la coordonnee la plus a gauche
-void	get_left_x()
+t_coord	get_right_x(t_lst *lst, t_map *map)
 {
-	int y = 0;
-	int x = 0;
-	while(lst)
-	{
-		if (lst->x > x)
+		t_coord	coord;
+		int y = 0;
+		int x = 0;
+		while(lst)
 		{
-			y = lst->y
-			x = lst->x
+				if (lst->x > x)
+				{
+						y = lst->y;
+						x = lst->x;
+				}
+				lst = lst->next;
 		}
-		lst = lst->next;
-	}
+		coord.x = x;
+		coord.y = y;
+		return (coord);
+
 }

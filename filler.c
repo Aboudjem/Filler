@@ -120,11 +120,13 @@ int		main (void)
 		get_piece(&piece);
 		//debug(pos, map, piece);
 		lst = check_map(&map, piece, &pos);
+		check_piece(lst, &piece, &map, &pos);
+		ft_putendl_fd("COUCOU ADAM", 2);
 		if (lst)
 		ft_printf("%d %d\n", lst->y, lst->x);
 		else
 			exit(1);
-		print_lst(lst);
+		//print_lst(lst);
 	}
 	return (0);
 }

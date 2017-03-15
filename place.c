@@ -69,7 +69,6 @@ t_lst	*add_placable(t_lst *lst, int x, int y)
 		tmp->x = x;
 		tmp->y = y;
 		tmp->next = lst;
-		tmp->end = 
 	}
 	return tmp;
 }
