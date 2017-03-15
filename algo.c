@@ -12,17 +12,45 @@
 
 #include "filler.h"
 
-void	find_best_pos()
+// void	get_pos()
+// {
+// 	fonction check_position adv 
+// 	if (pos me > pos adv)
+// }
+
+void	check_piece()
 {
-	pos adv(top, bot, left, right)
-	pos me(top, bot, left, right)
-	largeur piece
-	longueur piece
+	// si la piece est + large
+	if (piece->width > piece->height)
+	{ 
+		if (pos->player == 'O')
+			get_right_x();
+		else
+			get_left_x();
+		//on place la piece large a la position la plus "extreme" 
+		// c a d la plus a gauche ou a droite selon si jss p1 ou p2
+	}
+	// si la piece est + haute
+	else if (piece->height > piece->width)
+	{ 
+		if (pos->player == 'O')
+			get_bot_y();
+		else
+			get_top_y();
+		//on place la piece haute a la position la plus "extreme"
+	}
+}
+
+
+	// pos adv(top, bot, left, right)
+	// pos me(top, bot, left, right)
+	// largeur piece
+	// longueur piece
 	
-	6 2
-	6 3
-	7 2
-	7 3
+	// 6 2
+	// 6 3
+	// 7 2
+	// 7 3
 
 	
 	
