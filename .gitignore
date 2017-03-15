@@ -35,3 +35,6 @@
 # Temp files
 *.swp
 .*.swp
+
+# Others
+.DS_Store
