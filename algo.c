@@ -18,16 +18,15 @@
 // 	if (pos me > pos adv)
 // }
 
-void	check_piece(t_lst *lst, t_piece *piece, t_map *map, t_pos *pos)
+t_place check_piece(t_lst *lst, t_piece *piece, t_map *map, t_pos *pos)
 {
-	t_coord top;
-	t_coord bot;
-	t_coord left;
-	t_coord right;
+    t_place place;
 	
-	top = get_top_y(lst, map);
-	left = get_left_x(lst, map);
-	bot = get_bot_y(lst, map);
-	right = get_right_x(lst, map);
-	dprintf(2, "TOP=[%d][%d]; BOT=[%d][%d]; LEFT=[%d][%d]; RIGHT=[%d][%d]\n", top.y, top.x, bot.y, bot.x, left.y, left.x, right.y, right.x);
+	place.top = get_top_y(lst, map);
+	place.left = get_left_x(lst, map);
+    place.bot = get_bot_y(lst, map);
+	place.right = get_right_x(lst, map);
+    dprintf(2, "%d %d\n", place.right.y, place.right.x);
+    ft_printf("%d %d\n", place.left.y, place.left.x);
+    return (place);
 }

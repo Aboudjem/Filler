@@ -35,13 +35,13 @@ typedef struct s_pos
 	int 		y;
 }				t_pos;
 
-typedef struct s_lim
+typedef struct s_limit
 {
 	int 		top;
 	int 		bot;
 	int 		left;
 	int 		right;
-}				t_lim;
+}				t_limit;
 
 typedef struct 	s_lst
 {
@@ -60,10 +60,20 @@ typedef struct 	s_coord
 	int y;
 }				t_coord;
 
+typedef struct 	s_place
+{
+	t_coord top;
+    t_coord bot;
+    t_coord left;
+    t_coord right;
+}				t_place;
+
+
+
 void	is_possible(int y, int x, t_piece piece, t_map map);
-int		is_column_empty(t_piece piece, int column);
-int		is_line_empty(char *line);
-void	clean_piece(t_piece *piece, t_lim *lim);
+int		is_column_empty(t_map map, int column, char c);
+int		is_line_empty(char *line, char c);
+void	clean_piece(t_piece *piece, t_limit *lim);
 void	check_advers(t_map *map, t_pos *pos);
 void	check_player(t_map *map, t_pos *pos);
 void	place_piece(t_map map, t_piece piece, t_pos pos);
@@ -74,6 +84,8 @@ t_coord	get_top_y(t_lst *lst, t_map *map);
 t_coord	get_bot_y(t_lst *lst, t_map *map);
 t_coord	get_left_x(t_lst *lst, t_map *map);
 t_coord	get_right_x(t_lst *lst, t_map *map);
-void	check_piece(t_lst *lst, t_piece *piece, t_map *map, t_pos *pos);
+t_place check_piece(t_lst *lst, t_piece *piece, t_map *map, t_pos *pos);
+int	line_contain(char *line, char c);
+int	column_contain(t_map map, int column, char c);
 
 # endif

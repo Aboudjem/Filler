@@ -77,7 +77,11 @@ void	print_lst(t_lst *lst)
 {
 	while(lst)
 	{
-		dprintf(2, ">----->[%d.%d]<-----<\n",lst->y, lst->x);
+		ft_putstr_fd(">----->[", 2);
+        ft_putnbr_fd(lst->y, 2);
+		ft_putstr_fd(".", 2);
+        ft_putnbr_fd(lst->x, 2);
+		ft_putendl_fd("]<-----<\n", 2);
 		lst = lst->next;
 	}
 }
