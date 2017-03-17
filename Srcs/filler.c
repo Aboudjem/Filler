@@ -6,7 +6,7 @@
 /*   By: aboudjem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/09 06:26:05 by aboudjem          #+#    #+#             */
-/*   Updated: 2017/03/15 02:04:14 by plisieck         ###   ########.fr       */
+/*   Updated: 2017/03/17 02:05:04 by plisieck         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,13 +170,13 @@ int		main (void)
         //check_piece(lst, &piece, &map, &pos);
         lim = get_limits(&map, 'X');
         ft_putendl_fd("COUCOU", 2);
-        place = check_piece(lst, &piece, &map, &pos);
-        dprintf(2, "LIMITS : TOP[%d][%d] BOT[%d][%d] LEFT[%d][%d] RIGHT[%d][%d]\n", place.top.y, place.top.x, place.bot.y, place.bot.x, place.left.y, place.left.x, place.right.y, place.right.x);
+        place = check_piece(lst, &map);
+        //dprintf(2, "LIMITS : TOP[%d][%d] BOT[%d][%d] LEFT[%d][%d] RIGHT[%d][%d]\n", place.top.y, place.top.x, place.bot.y, place.bot.x, place.left.y, place.left.x, place.right.y, place.right.x);
  //    if (lst)
    //         ft_printf("%d %d\n", lst->y, lst->x);
      //   else
        //     exit(1);
-        print_lst(lst);
+       // print_lst(lst);
     }
     return (0);
 }

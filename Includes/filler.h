@@ -3,7 +3,7 @@
 #ifndef FILLER_H
 # define FILLER_H
 
-#include "libft/Includes/libft.h"
+#include "libft.h"
 #include <stdio.h>
 #include <string.h>
 
@@ -48,11 +48,10 @@ typedef struct 	s_lst
 	int	x;
 	int y;
 	struct s_lst	*next;
-	//struct s_lst	*prev;
+//	struct s_lst	*prev;
 //	struct s_lst	*start;
 //	struct s_lst	*end;
 }				t_lst;
-
 
 typedef struct 	s_coord
 {
@@ -60,12 +59,24 @@ typedef struct 	s_coord
 	int y;
 }				t_coord;
 
-typedef struct 	s_place
+typedef struct 	s_topbot
+{
+	t_coord left;
+	t_coord right;
+}				t_topbot;
+
+typedef struct 	s_leftright
 {
 	t_coord top;
-    t_coord bot;
-    t_coord left;
-    t_coord right;
+	t_coord bot;
+}				t_leftright;
+
+typedef struct 	s_place
+{
+	t_topbot top;
+    t_topbot bot;
+    t_leftright left;
+    t_leftright right;
 }				t_place;
 
 
@@ -80,11 +91,11 @@ void	place_piece(t_map map, t_piece piece, t_pos pos);
 int 	check_place(t_map *map, t_piece piece, int y, int x, t_pos pos);
 t_lst	*check_map(t_map *map, t_piece piece, t_pos *pos);
 void	print_lst(t_lst *lst);
-t_coord	get_top_y(t_lst *lst, t_map *map);
-t_coord	get_bot_y(t_lst *lst, t_map *map);
-t_coord	get_left_x(t_lst *lst, t_map *map);
-t_coord	get_right_x(t_lst *lst, t_map *map);
-t_place check_piece(t_lst *lst, t_piece *piece, t_map *map, t_pos *pos);
+t_topbot	get_top(t_lst *lst, t_map *map);
+t_topbot	get_bot(t_lst *lst, t_map *map);
+t_leftright	get_left(t_lst *lst, t_map *map);
+t_leftright	get_right(t_lst *lst, t_map *map);
+t_place check_piece(t_lst *lst, t_map *map);
 int	line_contain(char *line, char c);
 int	column_contain(t_map map, int column, char c);
 

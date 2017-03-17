@@ -42,7 +42,7 @@ int		can_place_piece(t_map *map, t_piece piece, int y, int x, t_pos *pos)
 					touch++;
 				else if(map->map[y + py][x + px] == pos->adv)
 					return(0);
-					px++;
+				px++;
 			}
 			else if (piece.piece[py][px] == '.')
 			{
@@ -59,6 +59,26 @@ int		can_place_piece(t_map *map, t_piece piece, int y, int x, t_pos *pos)
 		return(0);
 }
 
+/*
+   t_lst	*add_placable(t_lst *lst, int x, int y)
+   {
+   t_lst	*new_element;
+
+   new_element = malloc(sizeof(t_lst));
+   new_element->x = x;
+   new_element->y = y;
+   if (!lst)
+   return (new_element);
+   while (lst->next)
+   lst = lst->next;
+   lst->next = new_element;
+   new_element->prev= lst;
+   new_element->next = NULL;
+   return (new_element);
+   }
+
+*/
+
 t_lst	*add_placable(t_lst *lst, int x, int y)
 {
 	t_lst	*tmp;
@@ -71,6 +91,7 @@ t_lst	*add_placable(t_lst *lst, int x, int y)
 		tmp->next = lst;
 	}
 	return tmp;
+
 }
 
 void	print_lst(t_lst *lst)
@@ -78,9 +99,9 @@ void	print_lst(t_lst *lst)
 	while(lst)
 	{
 		ft_putstr_fd(">----->[", 2);
-        ft_putnbr_fd(lst->y, 2);
+		ft_putnbr_fd(lst->y, 2);
 		ft_putstr_fd(".", 2);
-        ft_putnbr_fd(lst->x, 2);
+		ft_putnbr_fd(lst->x, 2);
 		ft_putendl_fd("]<-----<\n", 2);
 		lst = lst->next;
 	}

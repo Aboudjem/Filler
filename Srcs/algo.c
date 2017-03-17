@@ -6,7 +6,7 @@
 /*   By: plisieck <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/15 02:19:17 by plisieck          #+#    #+#             */
-/*   Updated: 2017/03/15 02:48:10 by plisieck         ###   ########.fr       */
+/*   Updated: 2017/03/17 01:56:23 by plisieck         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,21 @@
 // 	if (pos me > pos adv)
 // }
 
-t_place check_piece(t_lst *lst, t_piece *piece, t_map *map, t_pos *pos)
+t_place check_piece(t_lst *lst, t_map *map)
 {
     t_place place;
+	// t_topbot top;
+	// t_topbot bot;
+	// t_leftright left;
+	// t_leftright right;
 	
-	place.top = get_top_y(lst, map);
-	place.left = get_left_x(lst, map);
-    place.bot = get_bot_y(lst, map);
-	place.right = get_right_x(lst, map);
-    dprintf(2, "%d %d\n", place.right.y, place.right.x);
-    ft_printf("%d %d\n", place.left.y, place.left.x);
+	place.top = get_top(lst, map);
+	place.left = get_left(lst, map);
+    place.bot = get_bot(lst, map);
+	place.right = get_right(lst, map);
+    //dprintf(2, "%d %d\n", place.right.y, place.right.x);
+    ft_printf("%d %d\n", place.top.right.y, place.top.right.x);
+	//if (posmex > posadvx && posmey > posadvy)
+	//	place right
     return (place);
 }
