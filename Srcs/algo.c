@@ -6,7 +6,7 @@
 /*   By: plisieck <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/15 02:19:17 by plisieck          #+#    #+#             */
-/*   Updated: 2017/03/17 01:56:23 by plisieck         ###   ########.fr       */
+/*   Updated: 2017/03/20 22:38:11 by plisieck         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ t_place check_piece(t_lst *lst, t_map *map)
     place.bot = get_bot(lst, map);
 	place.right = get_right(lst, map);
     //dprintf(2, "%d %d\n", place.right.y, place.right.x);
-    ft_printf("%d %d\n", place.top.right.y, place.top.right.x);
+   // ft_printf("%d %d\n", place.top.right.y, place.top.right.x);
 	//if (posmex > posadvx && posmey > posadvy)
 	//	place right
     return (place);

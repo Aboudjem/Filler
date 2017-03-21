@@ -31,19 +31,6 @@ t_topbot	get_top(t_lst *lst, t_map *map)
 	top.left.y = y;
 	top.right.x = right;
 	top.right.y = y;
-	ft_putstr_fd("\n--------------------\n", 2);
-	ft_putstr_fd("[Top.left=", 2);
-	ft_putnbr_fd(top.left.y,2);
-	ft_putchar_fd(' ',2);
-	ft_putnbr_fd(top.left.x, 2);
-	ft_putendl_fd("",2);
-	ft_putstr_fd("[Top right", 2);
-	ft_putnbr_fd(top.right.y, 2);
-	ft_putchar_fd(' ',2);
-	ft_putnbr_fd(top.right.x, 2);
-	ft_putstr_fd("\n--------------------\n", 2);
-//	dprintf(2, "top.left=[%d][%d]top.right=[%d][%d]\n", top.left.y, top.left.x, top.right.y, top.right.x);
-
 	return (top);
 }
 
@@ -144,17 +131,6 @@ t_leftright	get_right(t_lst *lst, t_map *map)
 	right.top.y = top;
 	right.bot.x = x;
 	right.bot.y = bot;
-	ft_putstr_fd("\n--------------------\n", 2);
-	ft_putstr_fd("[right.top=", 2);
-	ft_putnbr_fd(right.top.y,2);
-	ft_putchar_fd(' ',2);
-	ft_putnbr_fd(right.top.x, 2);
-	ft_putendl_fd("",2);
-	ft_putstr_fd("[right bot", 2);
-	ft_putnbr_fd(right.bot.y, 2);
-	ft_putchar_fd(' ',2);
-	ft_putnbr_fd(right.bot.x, 2);
-	ft_putstr_fd("\n--------------------\n", 2);
 	return (right);
 
 }

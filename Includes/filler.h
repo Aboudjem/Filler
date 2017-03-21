@@ -3,9 +3,9 @@
 #ifndef FILLER_H
 # define FILLER_H
 
-#include "libft.h"
 #include <stdio.h>
 #include <string.h>
+#include "../libft/includes/libft.h"
 
 typedef struct 	s_map
 {
@@ -84,7 +84,7 @@ typedef struct 	s_place
 void	is_possible(int y, int x, t_piece piece, t_map map);
 int		is_column_empty(t_map map, int column, char c);
 int		is_line_empty(char *line, char c);
-void	clean_piece(t_piece *piece, t_limit *lim);
+void	clean_piece(t_piece *piece, int *cleaned_top, int *cleaned_left);
 void	check_advers(t_map *map, t_pos *pos);
 void	check_player(t_map *map, t_pos *pos);
 void	place_piece(t_map map, t_piece piece, t_pos pos);

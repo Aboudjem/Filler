@@ -120,9 +120,10 @@ t_lst	*check_map(t_map *map, t_piece piece, t_pos *pos)
 		x = 0;
 		while (x < map->width)
 		{
-			//dprintf(2, "MAP_WIDTH[%d] MAP_HEIGHT[%d]\n", map->width, map->height);
+			//dprintf(2, "Y[%d] X[%d]\n", y, x);
 			if (can_place_piece(map, piece, y, x, pos) == 1)
-				lst = add_placable(lst, x, y);
+			{
+				lst = add_placable(lst, x, y);}
 			x++;
 		}
 		y++;

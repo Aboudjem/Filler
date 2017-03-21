@@ -6,7 +6,7 @@
 /*   By: aboudjem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/09 06:26:05 by aboudjem          #+#    #+#             */
-/*   Updated: 2017/03/17 02:05:04 by plisieck         ###   ########.fr       */
+/*   Updated: 2017/03/21 04:51:43 by plisieck         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,6 +149,24 @@ t_limit	get_limits(t_map *map, char c)
             lim.right--;
     }
     return (lim);
+}/*
+void	if_top(t_place place, t_limit lim0, t_limit limX)
+{
+		if (limO.right >
+}*/
+
+void	resolve_all(t_place place, t_limit limO, t_limit limX, t_map map, int y, int x)
+{
+	int i = (limO.right - map.width);
+	(void)i;	ft_printf("%d %d\n", place.right.top.y - y, place.right.top.x - x);
+		/*	{
+		ft_printf("%d %d\n", place.right.top.y, place.right.top.x);
+		dprintf(2, "[[%d]][[%d]]\n", place.right.top.y, place.right.top.x);
+	}else{
+		ft_printf("%d %d\n", place.bot.right.y, place.bot.right.x);
+	dprintf(2, "{{%d}}[[%d]]\n", place.bot.right.y, place.bot.right.x);
+	}*/
+	(void)limX;
 }
 
 int		main (void)
@@ -156,9 +174,12 @@ int		main (void)
     t_map	map;
     t_piece piece;
     t_pos	pos;
-    t_limit	lim;
+    t_limit	limO;
+    t_limit	limX;
     t_lst	*lst;
     t_place place;
+	int y = 0;
+	int x = 0;
 
     get_player(&pos);
     while (1)
@@ -166,11 +187,14 @@ int		main (void)
         get_map(&map);
         get_piece(&piece);
         //debug(pos, map, piece);
-        lst = check_map(&map, piece, &pos);
+        clean_piece(&piece, &y, &x); 
+		lst = check_map(&map, piece, &pos);
         //check_piece(lst, &piece, &map, &pos);
-        lim = get_limits(&map, 'X');
-        ft_putendl_fd("COUCOU", 2);
-        place = check_piece(lst, &map);
+        limX = get_limits(&map, 'X');
+        limO = get_limits(&map, 'O');
+		print_lst(lst);	
+		place = check_piece(lst, &map);
+		resolve_all(place, limO, limX, map, y, x);
         //dprintf(2, "LIMITS : TOP[%d][%d] BOT[%d][%d] LEFT[%d][%d] RIGHT[%d][%d]\n", place.top.y, place.top.x, place.bot.y, place.bot.x, place.left.y, place.left.x, place.right.y, place.right.x);
  //    if (lst)
    //         ft_printf("%d %d\n", lst->y, lst->x);
