@@ -6,12 +6,11 @@
 /*   By: aboudjem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/09 06:26:05 by aboudjem          #+#    #+#             */
-/*   Updated: 2017/03/22 04:55:19 by plisieck         ###   ########.fr       */
+/*   Updated: 2017/03/22 06:38:51 by plisieck         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "filler.h"
-
 void	get_size_map(t_map *map)
 {
     char *line;
@@ -27,6 +26,35 @@ void	get_size_map(t_map *map)
     map->width = ft_atoi(line+i);
 }
 
+#define couleur(param) ft_putstr_fd("\033[%sm",param)
+
+void	color_map(char *map)
+{
+	int i =0;
+	while (map[i])
+	{
+		if (map[i] == 'O')
+		{
+			ft_putstr_fd("\033[36m", 2);
+			ft_putchar_fd('O', 2);
+			ft_putstr_fd("\033[0m", 2);
+		}
+		else if (map[i] == 'X')
+		{
+			ft_putstr_fd("\033[37m", 2);
+			ft_putchar_fd('X', 2);
+			ft_putstr_fd("\033[0m", 2);
+		}
+		else
+		{
+			ft_putstr_fd("\033[34m", 2);
+			ft_putchar_fd(map[i], 2);
+			ft_putstr_fd("\033[0m", 2);
+		}
+		i++;
+
+	}
+}
 void	get_map(t_map *map)
 {
     char	*line;
@@ -39,9 +67,11 @@ void	get_map(t_map *map)
     {
         get_next_line(0, &line);
         ft_strcpy(map->map[i], line+4);
-        // ft_putendl_fd(map->map[i], 2);
+		//color_map(map->map[i]);
+		//ft_putendl_fd("", 2);
         i++;
-    }	
+    }
+//ft_putendl_fd("\n", 2);	
 }
 
 void	get_size_piece(t_piece *piece)
@@ -151,17 +181,6 @@ t_limit	get_limits(t_map *map, char c)
     return (lim);
 }
 
-/*
-void	if_top(t_place place, t_limit lim0, t_limit limX)
-{
-		if (limO.right >
-}*/
-//void	ft_solve_bot(t_place place, t_limit me, t_limit adv, t_map map)
-//{
-	//si au dessus de ladv et a gauche
-//	if (me.right > adv.right)
-	//	ft_printf("%d %d\n", place.right.top.y)
-//}
 
 void	get_diff(t_limit *me, t_limit adv)
 {
@@ -190,7 +209,7 @@ void	resolve_all(t_place place, t_limit me, t_limit adv, t_map map, int y, int x
 	else
 	{
 		// Si on a atteint la bordure droite ou la bordure du haut
-		if (me.right > 15 || me.top == 0)
+		if (me.right > map.width - 2  || me.top == 0)
 		{
 			if (me.left != 0)
 				ft_printf("%d %d\n", place.left.top.y - y, place.left.top.x - x);
@@ -201,12 +220,30 @@ void	resolve_all(t_place place, t_limit me, t_limit adv, t_map map, int y, int x
 			ft_printf("%d %d\n", place.top.right.y - y, place.top.right.x - x);
 	}
 	
-	(void)place;
-	(void)me;
-	(void)adv;
-	(void)map;
-	(void)y;
-	(void)x;
+}
+
+void	resolve_all2(t_place place, t_limit me, t_limit adv, t_map map, int y, int x)
+{
+	get_diff(&me, adv);
+	//dprintf(2, "DIFF_Y=[%d] DIFF_X=[%d]\n", me.diff_y, me.diff_x);
+	// Dans le cas ou on est au dessus de l adversaire
+	if (me.diff_y > 1)
+		ft_printf("%d %d\n", place.right.bot.y - y, place.right.bot.x - x);
+	// Dans le cas inverse
+	else
+	{
+		// Si on a atteint la bordure droite ou la bordure du haut
+		if (me.right > map.width - 2  || me.top == 0)
+		{
+			if (me.left != 0)
+				ft_printf("%d %d\n", place.left.top.y - y, place.left.top.x - x);
+			else
+				ft_printf("%d %d\n", place.bot.right.y - y, place.bot.right.x - x);
+		}
+		else
+			ft_printf("%d %d\n", place.top.right.y - y, place.top.right.x - x);
+	}
+	
 }
 
 int		main (void)

@@ -1,6 +1,6 @@
-NAME	= tboivin.filler
+NAME	= players/aboudjem.filler
 
-SRC		= srcs/*.c
+SRC		= algo.c filler.c clean.c get_pos.c place.c
 
 OBJ		= $(SRC:.c=.o)
 
@@ -22,4 +22,7 @@ fclean: clean
 
 re: fclean $(NAME)
 
+norme:
+	norminette $(SRC)
+	norminette $(INC_PATH)*.h
 
