@@ -1,37 +1,25 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: plisieck <plisieck@student.42.fr>          +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2015/02/20 14:08:06 by plisieck          #+#    #+#              #
-#    Updated: 2017/03/20 22:25:57 by plisieck         ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
+NAME	= tboivin.filler
 
-NAME = players/aboudjem.filler
-SRC = Srcs/*.c
-OBJ = *.o
-FLAGS = -Wall -Wextra -Werror -I includes/
+SRC		= srcs/*.c
+
+OBJ		= $(SRC:.c=.o)
+
+CFLAGS	= -Wall -Wextra -Werror -g -I includes/
+
+$(NAME): $(OBJ)
+	@make -C libft
+	@gcc $(OBJ) -o $(NAME) -L libft/ -lft -I libft/includes/
 
 all: $(NAME)
 
-$(NAME):
-	@gcc -c $(FLAGS) $(SRC)
-	@make -C libft/
-	@gcc -o $(NAME) $(FLAGS) $(OBJ) libft/libft.a
-	@
-
-
 clean:
-	@make clean -C libft
+	@make -C libft/ clean
 	@rm -rf $(OBJ)
 
 fclean: clean
-	@make fclean -C libft
-	@rm -rf $(NAME)
+	@rm -rf $(NAME) $(OBJ)
+	@make -C libft/ fclean
 
-re: fclean all
+re: fclean $(NAME)
 
-.PHONY: all clean fclean re
+

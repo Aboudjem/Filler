@@ -6,17 +6,12 @@
 /*   By: plisieck <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/15 02:19:17 by plisieck          #+#    #+#             */
-/*   Updated: 2017/03/20 22:38:11 by plisieck         ###   ########.fr       */
+/*   Updated: 2017/03/22 05:42:20 by plisieck         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "filler.h"
 
-// void	get_pos()
-// {
-// 	fonction check_position adv 
-// 	if (pos me > pos adv)
-// }
 
 t_place check_piece(t_lst *lst, t_map *map)
 {

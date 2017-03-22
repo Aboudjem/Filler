@@ -5,7 +5,6 @@
 
 #include <stdio.h>
 #include <string.h>
-#include "../libft/includes/libft.h"
 
 typedef struct 	s_map
 {
@@ -41,6 +40,8 @@ typedef struct s_limit
 	int 		bot;
 	int 		left;
 	int 		right;
+	int			diff_y;
+	int			diff_x;
 }				t_limit;
 
 typedef struct 	s_lst
@@ -98,5 +99,6 @@ t_leftright	get_right(t_lst *lst, t_map *map);
 t_place check_piece(t_lst *lst, t_map *map);
 int	line_contain(char *line, char c);
 int	column_contain(t_map map, int column, char c);
+t_place check_piece(t_lst *lst, t_map *map);
 
 # endif

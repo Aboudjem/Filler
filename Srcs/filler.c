@@ -6,7 +6,7 @@
 /*   By: aboudjem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/09 06:26:05 by aboudjem          #+#    #+#             */
-/*   Updated: 2017/03/21 04:51:43 by plisieck         ###   ########.fr       */
+/*   Updated: 2017/03/22 04:55:19 by plisieck         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,24 +149,64 @@ t_limit	get_limits(t_map *map, char c)
             lim.right--;
     }
     return (lim);
-}/*
+}
+
+/*
 void	if_top(t_place place, t_limit lim0, t_limit limX)
 {
 		if (limO.right >
 }*/
+//void	ft_solve_bot(t_place place, t_limit me, t_limit adv, t_map map)
+//{
+	//si au dessus de ladv et a gauche
+//	if (me.right > adv.right)
+	//	ft_printf("%d %d\n", place.right.top.y)
+//}
 
-void	resolve_all(t_place place, t_limit limO, t_limit limX, t_map map, int y, int x)
+void	get_diff(t_limit *me, t_limit adv)
 {
-	int i = (limO.right - map.width);
-	(void)i;	ft_printf("%d %d\n", place.right.top.y - y, place.right.top.x - x);
-		/*	{
-		ft_printf("%d %d\n", place.right.top.y, place.right.top.x);
-		dprintf(2, "[[%d]][[%d]]\n", place.right.top.y, place.right.top.x);
-	}else{
-		ft_printf("%d %d\n", place.bot.right.y, place.bot.right.x);
-	dprintf(2, "{{%d}}[[%d]]\n", place.bot.right.y, place.bot.right.x);
-	}*/
-	(void)limX;
+	// Si on est au dessus de l'adverssaire
+	if (me->bot < adv.top)
+		me->diff_y = adv.top - me->bot;
+	else
+		me->diff_y = me->top - adv.bot;
+
+
+	// Si on est a gauche de l'adverssaire
+	if (me->right < adv.left)
+		me->diff_x = adv.left - me->right;
+	else
+		me->diff_x = adv.right - me->left;
+}
+
+void	resolve_all(t_place place, t_limit me, t_limit adv, t_map map, int y, int x)
+{
+	get_diff(&me, adv);
+	//dprintf(2, "DIFF_Y=[%d] DIFF_X=[%d]\n", me.diff_y, me.diff_x);
+	// Dans le cas ou on est au dessus de l adversaire
+	if (me.diff_y > 1)
+		ft_printf("%d %d\n", place.right.bot.y - y, place.right.bot.x - x);
+	// Dans le cas inverse
+	else
+	{
+		// Si on a atteint la bordure droite ou la bordure du haut
+		if (me.right > 15 || me.top == 0)
+		{
+			if (me.left != 0)
+				ft_printf("%d %d\n", place.left.top.y - y, place.left.top.x - x);
+			else
+				ft_printf("%d %d\n", place.bot.right.y - y, place.bot.right.x - x);
+		}
+		else
+			ft_printf("%d %d\n", place.top.right.y - y, place.top.right.x - x);
+	}
+	
+	(void)place;
+	(void)me;
+	(void)adv;
+	(void)map;
+	(void)y;
+	(void)x;
 }
 
 int		main (void)
@@ -174,8 +214,8 @@ int		main (void)
     t_map	map;
     t_piece piece;
     t_pos	pos;
-    t_limit	limO;
-    t_limit	limX;
+    t_limit	me;
+    t_limit	adv;
     t_lst	*lst;
     t_place place;
 	int y = 0;
@@ -190,11 +230,11 @@ int		main (void)
         clean_piece(&piece, &y, &x); 
 		lst = check_map(&map, piece, &pos);
         //check_piece(lst, &piece, &map, &pos);
-        limX = get_limits(&map, 'X');
-        limO = get_limits(&map, 'O');
-		print_lst(lst);	
+        me = get_limits(&map, pos.player);
+        adv = get_limits(&map, pos.adv);
+		//print_lst(lst);	
 		place = check_piece(lst, &map);
-		resolve_all(place, limO, limX, map, y, x);
+		resolve_all(place, me, adv, map, y, x);
         //dprintf(2, "LIMITS : TOP[%d][%d] BOT[%d][%d] LEFT[%d][%d] RIGHT[%d][%d]\n", place.top.y, place.top.x, place.bot.y, place.bot.x, place.left.y, place.left.x, place.right.y, place.right.x);
  //    if (lst)
    //         ft_printf("%d %d\n", lst->y, lst->x);

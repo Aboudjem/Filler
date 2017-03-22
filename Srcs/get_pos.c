@@ -132,5 +132,4 @@ t_leftright	get_right(t_lst *lst, t_map *map)
 	right.bot.x = x;
 	right.bot.y = bot;
 	return (right);
-
 }
