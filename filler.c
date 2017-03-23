@@ -6,7 +6,7 @@
 /*   By: aboudjem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/09 06:26:05 by aboudjem          #+#    #+#             */
-/*   Updated: 2017/03/23 03:36:54 by plisieck         ###   ########.fr       */
+/*   Updated: 2017/03/23 06:32:11 by plisieck         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,11 +67,11 @@ void	get_map(t_map *map)
 	{
 		get_next_line(0, &line);
 		ft_strcpy(map->map[i], line+4);
-		color_map(map->map[i]);
-		ft_putendl_fd("", 2);
+		//color_map(map->map[i]);
+		//ft_putendl_fd("", 2);
 		i++;
 	}
-	ft_putendl_fd("\n", 2);	
+//	ft_putendl_fd("\n", 2);	
 }
 
 void	get_size_piece(t_piece *piece)
@@ -201,19 +201,24 @@ void	get_diff(t_limit *me, t_limit adv)
 
 void	resolve_all(t_place place, t_limit me, t_limit adv, t_map map, int y, int x, t_players players)
 {
+	int div;
+	if (map.height >= 100)
+		div = map.height / 10;
+	else
+		div = 1;
 	get_diff(&me, adv);
 	//dprintf(2, "DIFF_Y=[%d] DIFF_X=[%d]\n", me.diff_y, me.diff_x);
 
 	// Dans le cas ou on est au dessus de l adversaire (on suppose qu'on est a gauche)
 	if (players.pos_player_y < players.pos_adv_y)
 	{
-		if (me.diff_y > 1)
+		if (me.diff_y > div)
 			ft_printf("%d %d\n", place.right.bot.y - y, place.right.bot.x - x);
 		// Dans le cas inverse
 		else
 		{
 			// Si on a atteint la bordure droite ou la bordure du haut
-			if (me.right > map.width - 2  || me.top == 0)
+			if (me.right ==  map.width - 1  || me.top == 0)
 			{
 				if (me.left != 0)
 					ft_printf("%d %d\n", place.left.top.y - y, place.left.top.x - x);
@@ -227,25 +232,23 @@ void	resolve_all(t_place place, t_limit me, t_limit adv, t_map map, int y, int x
 	// Dans le cas ou on est en dessous (on suppose qu'on est a droite)
 	else
 	{
-		if ((me.top == 0 || me.left == 0) && me.right < map.width - 1)
-			ft_printf("%d %d\n", place.right.bot.y - y, place.right.bot.x - x);
-		else if (me.top >= adv.top)
+
+		if (adv.bot + div < me.top)
+				ft_printf("%d %d\n", place.top.left.y - y, place.top.left.x - x);
+		else
+		{
+			if (me.left == 0 )
+				ft_printf("%d %d\n", place.top.right.y - y, place.top.right.x - x);
+			else	
+			ft_printf("%d %d\n", place.left.bot.y - y, place.left.bot.x - x);
+		}
+	/*	else
 		{
 			if (me.top == 0)
-			ft_printf("%d %d\n", place.left.bot.y - y, place.left.bot.x - x);
+				ft_printf("%d %d\n", place.left.bot.y - y, place.left.bot.x - x);
 			else
-			{
-				ft_putendl_fd("ca rentre  IF", 2);
-			ft_printf("%d %d\n", place.top.left.y - y, place.top.left.x - x);
-			}
-		}
-		else if (me.top < adv.top)
-		{
-			ft_putendl_fd("ELSE IF", 2);
-			ft_printf("%d %d\n", place.left.top.y - y, place.left.top.x - x);
-		}
-			else if (me.left == 0 && me.top == 0)
-			ft_printf("%d %d\n", place.bot.left.y - y, place.bot.left.x - x);
+				ft_printf("%d %d\n", place.bot.left.y - y, place.bot.left.x - x);
+		}*/
 	}
 }
 
