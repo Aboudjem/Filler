@@ -23,7 +23,7 @@ typedef struct 	s_piece
 		char	piece[100][100];
 }				t_piece;
 
-typedef struct s_pos
+typedef struct s_players
 {
 	char 		player;
 	char 		adv;
@@ -31,9 +31,7 @@ typedef struct s_pos
 	int 		pos_adv_x;
 	int 		pos_player_x;
 	int 		pos_player_y;
-	int 		x;
-	int 		y;
-}				t_pos;
+}				t_players;
 
 typedef struct s_limit
 {
@@ -87,11 +85,11 @@ void	is_possible(int y, int x, t_piece piece, t_map map);
 int		is_column_empty(t_map map, int column, char c);
 int		is_line_empty(char *line, char c);
 void	clean_piece(t_piece *piece, int *cleaned_top, int *cleaned_left);
-void	check_advers(t_map *map, t_pos *pos);
-void	check_player(t_map *map, t_pos *pos);
-void	place_piece(t_map map, t_piece piece, t_pos pos);
-int 	check_place(t_map *map, t_piece piece, int y, int x, t_pos pos);
-t_lst	*check_map(t_map *map, t_piece piece, t_pos *pos);
+void	check_advers(t_map *map, t_players *players);
+void	check_player(t_map *map, t_players *players);
+void	place_piece(t_map map, t_piece piece, t_players players);
+int 	check_place(t_map *map, t_piece piece, int y, int x, t_players players);
+t_lst	*check_map(t_map *map, t_piece piece, t_players *players);
 void	print_lst(t_lst *lst);
 t_topbot	get_top(t_lst *lst, t_map *map);
 t_topbot	get_bot(t_lst *lst, t_map *map);
@@ -101,5 +99,6 @@ t_place check_piece(t_lst *lst, t_map *map);
 int	line_contain(char *line, char c);
 int	column_contain(t_map map, int column, char c);
 t_place check_piece(t_lst *lst, t_map *map);
+void	start(t_players *players, t_map map, int *i);
 
 # endif

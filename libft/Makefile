@@ -6,7 +6,7 @@
 #    By: aboudjem <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/02/06 05:24:16 by aboudjem          #+#    #+#              #
-#    Updated: 2017/03/20 22:15:27 by plisieck         ###   ########.fr        #
+#    Updated: 2017/03/23 00:29:23 by plisieck         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,7 +42,7 @@ $(NAME): $(OBJS)
 ifeq ($(VERBOSE),true)
 	@echo "\033[1;36m. Archive .\033[0m $(NAME)"
 else
-	@printf "\033[1;31m.\033[0m\n"
+	@printf "\033[1;32m.\033[0m\n"
 endif
 	@$(AR) rcus $(NAME) $(OBJS)
 
@@ -50,7 +50,7 @@ endif
 ifeq ($(VERBOSE),true)
 	@echo "\033[1;36m. Compile .\033[0m $<"
 else
-	@printf "\033[1;31m.\033[0m"
+	@printf "\033[1;32m.\033[0m"
 endif
 	@$(CC) $(ALL_CFLAGS) $(INCLUDES) -c $< -o $@
 
