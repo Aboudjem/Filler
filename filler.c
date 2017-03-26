@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#define color 1 
+#define color 0
 
 #include "filler.h"
 void	get_size_map(t_map *map)
@@ -42,7 +42,7 @@ void	color_map(char *map)
 		}
 		else if (map[i] == 'X')
 		{
-			ft_putstr_fd("\033[35m", 2);
+			ft_putstr_fd("\033[32m", 2);
 			ft_putchar_fd('X', 2);
 			ft_putstr_fd("\033[0m", 2);
 		}
@@ -204,87 +204,36 @@ void	get_diff(t_limit *me, t_limit adv)
 		me->diff_x = me->left - adv.right;
 }
 
-t_coord	rightpos(t_lst *lst, t_coord save)
-{
-	int y = save.y;
-	int right = save.x;
-	t_lst *first = lst;
-	while(lst)
-	{
-		if (lst->y < y)
-			y = lst->y;
-		lst = lst->next;
-	}
-	lst = first;
-	while (lst)
-	{
-		if (lst->y == y)
-		{
-			if (lst->x > right)
-				right = lst->x;
-			if (lst->x < left)
-				left = lst->x;
-		}
-		lst = lst->next;
-	}
-	top.left.x = left;
-	top.left.y = y;
-	top.right.x = right;
-	top.right.y = y;
-	return (top);
-}
-
-void	big_map(t_place place, t_limit me, t_limit adv, int y, int x,t_map map, t_lst *lst)
+void	big_map(t_place place, t_limit me, t_limit adv, int y, int x,t_map map)
 {
 	get_diff(&me, adv);
 //Si on ladv avance sur la droite on decale sur la droite pour monter sinn on monte sur la gauche
-			// ft_printf("%d %d\n", place.top.right.y - y, place.top.right.x - x);
-	// 		ft_printf("%d %d\n", place.top.left.y - y, place.top.left.x - x);
-		
-		t_coord save;
-
-			if (me.left != 0)
-				{
-					if (me.top - 2 == adv.bot)
-					{
-						save = rightpos(lst, place.top.right);
-						ft_putnbr_fd(right, 2);
-						ft_putendl_fd("", 2);	
-						ft_putnbr_fd(right, 2);	
-						ft_putendl_fd("", 2);	
-						ft_putnbr_fd(right, 2);	
-					}
-				ft_printf("%d %d\n", place.left.top.y - y, place.left.top.x - x);
-				}
-			else
-				ft_printf("%d %d\n", place.top.right.y - y, place.top.right.x - x);
-
-	
-	// if ((adv.top + 5) < me.top)
+	int i = 0;
+	if (me.top + 2 > adv.bot)
+		ft_printf("%d %d\n", place.left.top.y - y, place.left.top.x - x);
+	else if ( me.right != map.width - 1)
+		ft_printf("%d %d\n", place.right.top.y - y, place.right.top.x - x);
+	else if (me.left != 0)
+		ft_printf("%d %d\n", place.left.top.y - y, place.left.top.x - x);
+	else if (me.top != 0)
+		ft_printf("%d %d\n", place.top.left.y - y, place.top.left.x - x);
+	else
+	{
+		if (i < 10)
+		ft_printf("%d %d\n", place.right.top.y - y, place.right.top.x - x);
+		else
+		ft_printf("%d %d\n", place.top.left.y - y, place.top.left.x - x);
+	}
+	// if (me.top + 2 > adv.bot)
 	// {
-	// 	if (me.diff_x > 5)
-	// 	{
-	// 		ft_putstr_fd("COUCOU JSS LA\nLALALA\n", 2);
-	// 		ft_putnbr_fd(me.diff_x, 2);
-	// 		ft_printf("%d %d\n", place.top.left.y - y, place.top.left.x - x);
-	// 	}
-	// 	else
-	// 	{
-	// 		ft_printf("%d %d\n", place.top.right.y - y, place.top.right.x - x);
-	// 		ft_putstr_fd("111111111\n1111111\n", 2);
-	// 		ft_putnbr_fd(me.diff_x, 2);
-	// 	}
-	// }
-	// else
-	// {
-	// 	ft_putstr_fd("ELSEEEEEEEEEEEE", 2);
-	// 	// if (me.bot > adv.bot + 5)
-	// 	// 	ft_printf("%d %d\n", place.left.bot.y - y, place.left.bot.x - x);
-	// 	// else
+	// 	if (me.left - adv.right > 5)
 	// 		ft_printf("%d %d\n", place.bot.left.y - y, place.bot.left.x - x);
-
+	// 	else
+	// 		ft_printf("%d %d\n", place.top.right.y - y, place.top.right.x - x);
 	// }
-(void)map;
+
+
+	(void)map;
 }
 
 void	resolve_all(t_place place, t_limit me, t_limit adv, t_map map, int y, int x, t_players players)
