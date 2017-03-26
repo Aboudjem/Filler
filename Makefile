@@ -1,12 +1,12 @@
 NAME	= players/aboudjem.filler
 
-SRC		= algo.c filler.c clean.c get_pos.c place.c
+SRC		= algo.c filler.c clean.c get_pos.c place.c clean_utils.c utils.c
 
 OBJ		= $(SRC:.c=.o)
 
 CFLAGS	= -Wall -Wextra -Werror -g -I includes/
 
-$(NAME): $(OBJ)
+$(NAME): $(OBJ) 
 	@make -C libft
 	@gcc $(OBJ) -o $(NAME) -L libft/ -lft -I libft/includes/
 

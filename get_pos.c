@@ -1,15 +1,30 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_pos.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: plisieck <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/03/26 13:55:52 by plisieck          #+#    #+#             */
+/*   Updated: 2017/03/26 13:59:27 by plisieck         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "filler.h"
 
 t_topbot	get_top(t_lst *lst, t_map *map)
 {
-	t_topbot top;
+	int			y;
+	t_topbot	top;
+	int			left;
+	int			right;
+	t_lst		*first;
 
-
-	int y = map->height;
-	int left = map->width;
-	int right = 0;
-	t_lst *first = lst;
-	while(lst)
+	y = map->height;
+	left = map->width;
+	right = 0;
+	first = lst;
+	while (lst)
 	{
 		if (lst->y < y)
 			y = lst->y;
@@ -36,13 +51,17 @@ t_topbot	get_top(t_lst *lst, t_map *map)
 
 t_topbot	get_bot(t_lst *lst, t_map *map)
 {
-	t_topbot bot;
+	int			y;
+	t_topbot	bot;
+	int			left;
+	int			right;
+	t_lst		*first;
 
-	int y = 0;
-	int left = map->width;
-	int right = 0;
-	t_lst *first = lst;
-	while(lst)
+	y = 0;
+	left = map->width;
+	right = 0;
+	first = lst;
+	while (lst)
 	{
 		if (lst->y > y)
 			y = lst->y;
@@ -64,18 +83,22 @@ t_topbot	get_bot(t_lst *lst, t_map *map)
 	bot.left.y = y;
 	bot.right.x = right;
 	bot.right.y = y;
-	return(bot);
+	return (bot);
 }
 
 t_leftright	get_left(t_lst *lst, t_map *map)
 {
+	int			x;
+	int			top;
+	int			bot;
+	t_lst		*first;
 	t_leftright	left;
 
-	int x = map->width;
-	int top = map->height;
-	int bot = 0;
-	t_lst *first = lst;
-	while(lst)
+	x = map->width;
+	top = map->height;
+	bot = 0;
+	first = lst;
+	while (lst)
 	{
 		if (lst->x < x)
 			x = lst->x;
@@ -98,18 +121,21 @@ t_leftright	get_left(t_lst *lst, t_map *map)
 	left.bot.x = x;
 	left.bot.y = bot;
 	return (left);
-
 }
 
 t_leftright	get_right(t_lst *lst, t_map *map)
 {
+	int			x;
+	int			top;
+	int			bot;
+	t_lst		*first;
 	t_leftright	right;
 
-	int x = 0;
-	int top = map->height;
-	int bot = 0;
-	t_lst *first = lst;
-	while(lst)
+	x = 0;
+	bot = 0;
+	top = map->height;
+	first = lst;
+	while (lst)
 	{
 		if (lst->x > x)
 			x = lst->x;
