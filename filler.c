@@ -204,19 +204,50 @@ void	get_diff(t_limit *me, t_limit adv)
 		me->diff_x = me->left - adv.right;
 }
 
-void	big_map(t_place place, t_limit me, t_limit adv, int y, int x,t_map map)
+t_coord	rightpos(t_lst *lst, t_coord save)
+{
+	int y = save.y;
+	int right = save.x;
+	t_lst *first = lst;
+	while(lst)
+	{
+		if (lst->y < y)
+			y = lst->y;
+		lst = lst->next;
+	}
+	lst = first;
+	while (lst)
+	{
+		if (lst->y == y)
+		{
+			if (lst->x > right)
+				right = lst->x;
+			if (lst->x < left)
+				left = lst->x;
+		}
+		lst = lst->next;
+	}
+	top.left.x = left;
+	top.left.y = y;
+	top.right.x = right;
+	top.right.y = y;
+	return (top);
+}
+
+void	big_map(t_place place, t_limit me, t_limit adv, int y, int x,t_map map, t_lst *lst)
 {
 	get_diff(&me, adv);
 //Si on ladv avance sur la droite on decale sur la droite pour monter sinn on monte sur la gauche
 			// ft_printf("%d %d\n", place.top.right.y - y, place.top.right.x - x);
 	// 		ft_printf("%d %d\n", place.top.left.y - y, place.top.left.x - x);
-		int right;
+		
+		t_coord save;
 
 			if (me.left != 0)
 				{
 					if (me.top - 2 == adv.bot)
 					{
-						right = place.top.right.x;
+						save = rightpos(lst, place.top.right);
 						ft_putnbr_fd(right, 2);
 						ft_putendl_fd("", 2);	
 						ft_putnbr_fd(right, 2);	
