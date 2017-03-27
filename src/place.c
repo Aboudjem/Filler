@@ -6,7 +6,7 @@
 /*   By: plisieck <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/26 13:53:55 by plisieck          #+#    #+#             */
-/*   Updated: 2017/03/26 14:03:27 by plisieck         ###   ########.fr       */
+/*   Updated: 2017/03/27 16:16:29 by plisieck         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,35 +41,41 @@ void	start(t_players *players, t_map map, int *first_time)
 	*first_time = 1;
 }
 
-int		can_place_piece(t_map *map, t_piece piece, t_coord coord, t_players *p)
+int		norme_can_place_piece(t_filler f, t_coord coord, t_coord *c, int *touch)
 {
-	int py;
-	int	px;
-	int	touch;
+	if (f.piece.piece[c->y][c->x] == '*')
+	{
+		if (f.map.map[coord.y + c->y][coord.x + c->x] == f.players.player)
+			*touch += 1;
+		else if (f.map.map[coord.y + c->y][coord.x + c->x] == f.players.adv)
+			return (-1);
+		c->x += 1;
+	}
+	else if (f.piece.piece[c->y][c->x] == '.')
+	{
+		if (f.map.map[coord.y + c->y][coord.x + c->x] == f.players.adv)
+			return (-1);
+		c->x += 1;
+	}
+	return (0);
+}
+
+int		can_place_piece(t_filler f, t_coord coord)
+{
+	t_coord c;
+	int		touch;
 
 	touch = 0;
-	py = 0;
-	while (py < piece.height && (coord.y + piece.height <= map->height))
+	c.y = 0;
+	while (c.y < f.piece.height && (coord.y + f.piece.height <= f.map.height))
 	{
-		px = 0;
-		while (px < piece.width && (coord.x + piece.width <= map->width))
+		c.x = 0;
+		while (c.x < f.piece.width && (coord.x + f.piece.width <= f.map.width))
 		{
-			if (piece.piece[py][px] == '*')
-			{
-				if (map->map[coord.y + py][coord.x + px] == p->player)
-					touch++;
-				else if (map->map[coord.y + py][coord.x + px] == p->adv)
-					return (0);
-				px++;
-			}
-			else if (piece.piece[py][px] == '.')
-			{
-				if (map->map[coord.y + py][coord.x + px] == p->adv)
-					return (0);
-				px++;
-			}
+			if (norme_can_place_piece(f, coord, &c, &touch) == -1)
+				return (0);
 		}
-		py++;
+		c.y++;
 	}
 	return (touch == 1 ? 1 : 0);
 }
@@ -86,27 +92,6 @@ t_lst	*add_placable(t_lst *lst, int x, int y)
 		tmp->next = lst;
 	}
 	return (tmp);
-}
-
-t_lst	*check_map(t_map *map, t_piece piece, t_players *players)
-{
-	t_coord coord;
-	t_lst	*lst;
-
-	coord.y = 0;
-	lst = NULL;
-	while (coord.y < map->height)
-	{
-		coord.x = 0;
-		while (coord.x < map->width)
-		{
-			if (can_place_piece(map, piece, coord, players) == 1)
-				lst = add_placable(lst, coord.x, coord.y);
-			coord.x++;
-		}
-		coord.y++;
-	}
-	return (lst);
 }
 
 void	check_advers(t_map *map, t_players *players)

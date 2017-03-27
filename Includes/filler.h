@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   filler.h                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: plisieck <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/03/27 16:26:16 by plisieck          #+#    #+#             */
+/*   Updated: 2017/03/27 16:30:27 by plisieck         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef FILLER_H
 # define FILLER_H
 
@@ -5,11 +17,25 @@
 # include <stdio.h>
 # include <string.h>
 
-
 /*
  ** CONFIGURATION
 */
-#define DISPLAY_COLORS 0
+# define DISPLAY_COLORS 0
+# define P1_COLOR CYAN
+# define P2_COLOR WHITE
+
+/*
+ ** COLOR DEFINES
+*/
+# define BLACK "\033[30m"
+# define RED "\033[31m"
+# define GREEN "\033[32m"
+# define YELLOW "\033[33m"
+# define BLUE "\033[34m"
+# define MAGENTA "\033[35m"
+# define CYAN "\033[36m"
+# define WHITE "\033[37m"
+# define EOC "\033[0m"
 
 typedef	struct	s_map
 {
@@ -79,31 +105,33 @@ typedef struct	s_place
 	t_leftright	right;
 }				t_place;
 
-typedef struct 	s_filler
+typedef struct	s_filler
 {
-	t_map		map;
-	t_players	players;
+	t_place		p;
 	t_limit		me;
 	t_limit		adv;
-	t_place		place;
+	t_map		map;
+	t_piece		piece;
+	t_players	players;
 }				t_filler;
 
 /*
  **	algo.c
 */
-t_place			check_piece(t_lst *lst, t_map *map);
-void    		resolve_all(t_filler f, t_coord c);
-void			starting_at_bot(t_filler f, t_coord c);
+void			resolve_all(t_filler f, t_coord c);
+void			starting_at_bot_small_map(t_filler f, t_coord c);
+void			starting_at_bot_medium_map(t_filler f, t_coord c);
+void			starting_at_bot_big_map(t_filler f, t_coord c);
 void			starting_at_top(t_filler f, t_coord c);
 
 /*
  **	place.c
 */
 void			start(t_players *players, t_map map, int *i);
-t_lst			*check_map(t_map *map, t_piece piece, t_players *players);
+t_lst			*check_map(t_filler f);
 void			check_advers(t_map *map, t_players *players);
 t_lst			*add_placable(t_lst *lst, int x, int y);
-int				can_place_piece(t_map *map, t_piece piece, t_coord coord, t_players *p);
+int				can_place_piece(t_filler f, t_coord coord);
 
 /*
  **	get_pos.c
@@ -113,6 +141,13 @@ t_topbot		get_bot(t_lst *lst, t_map *map);
 t_leftright		get_left(t_lst *lst, t_map *map);
 t_leftright		get_right(t_lst *lst, t_map *map);
 
+/*
+ **	norme_get_pos.c
+*/
+void			norme_get_top(t_lst *lst, int *right, int *left, int *y);
+void			norme_get_bot(t_lst *lst, int *right, int *left, int *y);
+void			norme_get_left(t_lst *lst, int *top, int *bot, int *x);
+void			norme_get_right(t_lst *lst, int *top, int *bot, int *x);
 
 /*
  **	utils.c
@@ -124,11 +159,10 @@ void			get_size_piece(t_piece *piece);
 void			get_piece(t_piece *piece);
 void			get_player(t_players *players);
 
-
 /*
- **	clean_utils.c
+ **	clean.c
 */
-void			clean_piece(t_piece *piece, int *cleaned_top, int *cleaned_left);
+void			clean_piece(t_piece *piece, int *clean_top, int *clean_left);
 void			get_cleaning_limits(t_piece *p, t_limit *l, int y, int x);
 void			get_cleaning_limits(t_piece *p, t_limit *l, int y, int x);
 void			init_coord(t_coord *coord);

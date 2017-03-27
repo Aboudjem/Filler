@@ -6,7 +6,7 @@
 /*   By: plisieck <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/26 13:31:10 by plisieck          #+#    #+#             */
-/*   Updated: 2017/03/26 14:08:33 by plisieck         ###   ########.fr       */
+/*   Updated: 2017/03/27 16:30:45 by plisieck         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	get_cleaning_limits(t_piece *p, t_limit *l, int y, int x)
 	get_cleaning_limits2(p, l);
 }
 
-void	clean_piece(t_piece *p, int *cleaned_top, int *cleaned_left)
+void	clean_piece(t_piece *p, int *clean_top, int *clean_left)
 {
 	t_limit	l;
 	int		x;
@@ -76,8 +76,8 @@ void	clean_piece(t_piece *p, int *cleaned_top, int *cleaned_left)
 		start++;
 		x++;
 	}
-	*cleaned_top = l.top;
-	*cleaned_left = l.left;
+	*clean_top = l.top;
+	*clean_left = l.left;
 }
 
 void	get_diff(t_limit *me, t_limit adv)

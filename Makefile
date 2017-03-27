@@ -1,28 +1,52 @@
-NAME	= players/aboudjem.filler
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: plisieck <plisieck@student.42.fr>          +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2015/02/20 14:08:06 by plisieck          #+#    #+#              #
+#    Updated: 2017/03/27 14:35:02 by plisieck         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
 
-SRC		= algo.c filler.c clean.c get_pos.c place.c clean_utils.c utils.c
+NAME = players/plisieck.filler
 
-OBJ		= $(SRC:.c=.o)
+SRC_PATH = src/
+OBJ_PATH = obj/
+INC_PATH = includes/
 
-CFLAGS	= -Wall -Wextra -Werror -g -I includes/
+SRC_NAME =  algo.c clean.c clean_utils.c filler.c get_pos.c place.c utils.c norme_get_pos.c
+OBJ_NAME = $(SRC_NAME:.c=.o)
+INC_NAME =  filler.h 
 
-$(NAME): $(OBJ) 
-	@make -C libft
-	@gcc $(OBJ) -o $(NAME) -L libft/ -lft -I libft/includes/
+CPPFLAGS = -I$(INC_PATH)
+LDFLAGS = -Llibft
+LDLIBS = -lft
+CC = clang
+CFLAGS = -Werror -Wall -Wextra
+
+
+SRC = $(addprefix $(SRC_PATH),$(SRC_NAME))
+OBJ = $(addprefix $(OBJ_PATH),$(OBJ_NAME))
+INC = $(addprefix $(INC_PATH),$(INC_NAME))
 
 all: $(NAME)
 
+$(NAME): $(OBJ) $(INC)
+	@$(CC) $(LDFLAGS) $(LDLIBS) $(OBJ) -o $(NAME)
+	@echo "\033[33;32mCompilation Done !"
+
+$(OBJ_PATH)%.o: $(SRC_PATH)%.c
+	@mkdir $(OBJ_PATH) 2> /dev/null || true
+	@$(CC) $(CFLAGS) $(CPPFLAGS) -o $@ -c $<
 clean:
-	@make -C libft/ clean
-	@rm -rf $(OBJ)
-
+	@rm -fv $(OBJ)
+	@rmdir $(OBJ_PATH) 2> /dev/null || true
 fclean: clean
-	@rm -rf $(NAME) $(OBJ)
-	@make -C libft/ fclean
+	@rm -fv $(NAME)
 
-re: fclean $(NAME)
+re: fclean all
 
-norme:
-	norminette $(SRC)
-	norminette $(INC_PATH)*.h
+.PHONY: all, clean, fclean, re
 

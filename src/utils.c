@@ -6,7 +6,7 @@
 /*   By: plisieck <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/26 13:50:36 by plisieck          #+#    #+#             */
-/*   Updated: 2017/03/26 13:59:16 by plisieck         ###   ########.fr       */
+/*   Updated: 2017/03/27 16:19:27 by plisieck         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,12 @@ void	get_map(t_map *map)
 		if (DISPLAY_COLORS == 1)
 		{
 			color_map(map->map[i]);
-			ft_putendl_fd("", 2);
+			ft_putstr_fd("\n", 2);
 		}
 		i++;
 	}
 	if (DISPLAY_COLORS == 1)
-		ft_putendl_fd("\n", 2);
+		ft_putstr_fd("\n", 2);
 }
 
 void	get_size_map(t_map *map)
@@ -59,21 +59,21 @@ void	color_map(char *map)
 	{
 		if (map[i] == 'O')
 		{
-			ft_putstr_fd("\033[36m", 2);
+			ft_putstr_fd(P1_COLOR, 2);
 			ft_putchar_fd('O', 2);
-			ft_putstr_fd("\033[0m", 2);
+			ft_putstr_fd(EOC, 2);
 		}
 		else if (map[i] == 'X')
 		{
-			ft_putstr_fd("\033[32m", 2);
+			ft_putstr_fd(P2_COLOR, 2);
 			ft_putchar_fd('X', 2);
-			ft_putstr_fd("\033[0m", 2);
+			ft_putstr_fd(EOC, 2);
 		}
 		else
 		{
-			ft_putstr_fd("\033[34m", 2);
+			ft_putstr_fd(BLUE, 2);
 			ft_putchar_fd(map[i], 2);
-			ft_putstr_fd("\033[0m", 2);
+			ft_putstr_fd(EOC, 2);
 		}
 		i++;
 	}
@@ -107,13 +107,4 @@ void	get_piece(t_piece *piece)
 		ft_strcpy(piece->piece[i], line);
 		i++;
 	}
-}
-
-void	get_player(t_players *players)
-{
-	char	*line;
-
-	get_next_line(0, &line);
-	players->player = ft_strncmp(line, "$$$ exec p1", 11) == 0 ? 'O' : 'X';
-	players->adv = players->player == 'O' ? 'X' : 'O';
 }
