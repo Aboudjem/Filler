@@ -35,7 +35,7 @@ all: $(NAME)
 
 $(NAME): $(OBJ) $(INC)
 	@$(CC) $(LDFLAGS) $(LDLIBS) $(OBJ) -o $(NAME)
-	@echo "\033[33;32mCompilation Done !"
+	@echo "\033[33;32mCompilation Done !\033[0;0m"
 
 $(OBJ_PATH)%.o: $(SRC_PATH)%.c
 	@mkdir $(OBJ_PATH) 2> /dev/null || true
@@ -47,6 +47,10 @@ fclean: clean
 	@rm -fv $(NAME)
 
 re: fclean all
+
+graph: graphiK.c
+	@$(CC) $(CFLAGS) graphiK.c -o graph -lcurses $(LDFLAGS) $(LDLIBS)
+	@echo "\033[33;32mGraph created !\033[0;0m"
 
 .PHONY: all, clean, fclean, re
 
