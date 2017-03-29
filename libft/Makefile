@@ -10,7 +10,6 @@
 #                                                                              #
 # **************************************************************************** #
 
-
 #	Library output
 NAME = libft.a
 
@@ -41,16 +40,13 @@ footer:
 $(NAME): $(OBJS)
 ifeq ($(VERBOSE),true)
 	@echo "\033[1;36m. Archive .\033[0m $(NAME)"
-else
-	@printf "\033[1;32m.\033[0m\n"
 endif
 	@$(AR) rcus $(NAME) $(OBJS)
+	@printf "\033[1;32mDone !\n\033[0m"
 
 %.o: %.c
 ifeq ($(VERBOSE),true)
 	@echo "\033[1;36m. Compile .\033[0m $<"
-else
-	@printf "\033[1;32m.\033[0m"
 endif
 	@$(CC) $(ALL_CFLAGS) $(INCLUDES) -c $< -o $@
 
