@@ -10,12 +10,18 @@ void	get_player(t_players *players)
 	if (ft_strncmp("# -----", line, 6) == 0)
 	{
 		while (ft_strncmp("launched players/ab", line, 19) != 0)
+		{
 			get_next_line(0, &line);
+			free(line);
+		}
 		get_next_line(0, &line);
 		if (ft_strncmp(line, "$$$ exec p1", 11) == 0)
 		{
+			free(line);
 			get_next_line(0, &line);
+			free(line);
 			get_next_line(0, &line);
+			free(line);
 		}
 	}
 	players->player = ft_strncmp(line, "$$$ exec p1", 11) == 0 ? 'O' : 'X';

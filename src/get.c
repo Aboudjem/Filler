@@ -13,6 +13,7 @@ void	get_map(t_map *map)
 	{
 		get_next_line(0, &line);
 		ft_strcpy(map->map[i], line + 4);
+		free(line);
 		i++;
 	}
 }
@@ -32,6 +33,7 @@ void	get_size_map(t_map *map)
 	else
 		exit (-1);
 	map->width = ft_atoi(line + i);
+	free(line);
 }
 
 void	get_size_piece(t_piece *piece)
@@ -49,6 +51,7 @@ void	get_size_piece(t_piece *piece)
 	else
 		exit (-1);
 	piece->width = ft_atoi(line + i);
+	free(line);
 }
 
 void	get_piece(t_piece *piece)
@@ -63,5 +66,6 @@ void	get_piece(t_piece *piece)
 		get_next_line(0, &line);
 		ft_strcpy(piece->piece[i], line);
 		i++;
+		free(line);
 	}
 }

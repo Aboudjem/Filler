@@ -42,7 +42,7 @@ typedef	struct	s_map
 
 	int		width;
 	int		height;
-	char	map[1000][1000];
+	char	map[100][100];
 }				t_map;
 
 typedef struct	s_piece
