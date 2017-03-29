@@ -6,13 +6,24 @@
 /*   By: aboudjem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/10/08 20:22:17 by aboudjem          #+#    #+#             */
-/*   Updated: 2016/10/30 00:22:01 by aboudjem         ###   ########.fr       */
+/*   Updated: 2017/03/29 06:18:22 by aboudjem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_putnbr_fd(int n, int fd)
+void	ft_putlnbr_fd(unsigned long int n, int fd)
+{
+	if (n < 10)
+		ft_putchar_fd(n + 48, fd);
+	else if (n >= 10)
+	{
+		ft_putlnbr_fd(n / 10, fd);
+		ft_putlnbr_fd(n % 10, fd);
+	}
+}
+
+void	ft_putnbr_fd(long int n, int fd)
 {
 	if (n == -2147483648)
 		ft_putstr_fd("-2147483648", fd);

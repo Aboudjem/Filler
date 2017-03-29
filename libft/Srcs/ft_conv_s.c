@@ -12,35 +12,16 @@
 
 #include "ft_printf.h"
 
-void	conv_s_zero(t_conv *t, t_flags f)
+void	conv_s(t_conv *t)
 {
-	if (f.zero == 0 && f.pad)
-		t->str = ft_strset(' ', f.pad);
-	else if (f.zero == 1 && f.pad)
-		t->str = ft_strset('0', f.pad);
+	if (!t->s)
+	{
+		ft_putstr_fd("(null)", t->fd);
+		exit(6);
+	}
 	else
 	{
-		t->str = ft_strdup("(null)");
-		t->str = ft_strsub(t->str, 0, f.dot);
-	}
-	t->print = ft_strjoin(t->print, t->str);
-	t->len_return = ft_strlen(t->str);
-	t->str = ft_strdup("");
-}
-
-void	conv_s(t_conv *t, t_flags f)
-{
-	if (!t->s && f.pre == 0)
-	{
-		t->str = ft_strdup("(null)");
-		t->len_return = 6;
-	}
-	else if (!t->s && f.pre == 1)
-		conv_s_zero(t, f);
-	else
-	{
-		t->str = ft_strdup(t->s);
-		s_join(t, f);
-		t->len_return = ft_strlen(t->str);
+		ft_putstr_fd(t->s, t->fd);
+		t->len_return = ft_strlen(t->s);
 	}
 }

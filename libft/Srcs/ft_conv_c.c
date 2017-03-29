@@ -12,24 +12,7 @@
 
 #include "ft_printf.h"
 
-void	conv_c(t_conv *t, t_flags f)
+void	conv_c(t_conv *t)
 {
-	char *tmp;
-
-	tmp = ft_strnew(1);
-	tmp[0] = t->c;
-	t->str = ft_strdup(tmp);
-	s_fill_nodot(t, f);
-	if (t->c)
-		t->len_return = ft_strlen(t->str);
-	else
-	{
-		t->print = ft_strjoin(t->print, t->str);
-		write(1, t->print, ft_strlen(t->print) + 1);
-		t->len_return = ft_strlen(t->str) + 1;
-		if (t->len_return == 0)
-			t->len_return++;
-		t->print = ft_strdup("");
-		t->str = ft_strdup("");
-	}
+	ft_putchar_fd(t->c, t->fd);
 }

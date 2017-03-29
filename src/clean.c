@@ -1,18 +1,7 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   clean.c                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: plisieck <marvin@42.fr>                    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/03/26 13:31:10 by plisieck          #+#    #+#             */
-/*   Updated: 2017/03/27 16:30:45 by plisieck         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
 
 #include "filler.h"
 
-void	get_cleaning_limits2(t_piece *p, t_limit *l)
+void	cleaning_limits2(t_piece *p, t_limit *l)
 {
 	while (l->right > l->left)
 	{
@@ -23,7 +12,7 @@ void	get_cleaning_limits2(t_piece *p, t_limit *l)
 	}
 }
 
-void	get_cleaning_limits(t_piece *p, t_limit *l, int y, int x)
+void	cleaning_limits(t_piece *p, t_limit *l, int y, int x)
 {
 	while (y < p->height)
 	{
@@ -48,7 +37,7 @@ void	get_cleaning_limits(t_piece *p, t_limit *l, int y, int x)
 		else
 			break ;
 	}
-	get_cleaning_limits2(p, l);
+	cleaning_limits2(p, l);
 }
 
 void	clean_piece(t_piece *p, int *clean_top, int *clean_left)
@@ -64,7 +53,7 @@ void	clean_piece(t_piece *p, int *clean_top, int *clean_left)
 	l.bot = p->height - 1;
 	l.left = 0;
 	l.right = p->width - 1;
-	get_cleaning_limits(p, &l, y, x);
+	cleaning_limits(p, &l, y, x);
 	p->width = (l.right - l.left) + 1;
 	p->height = (l.bot - l.top) + 1;
 	start = l.top;

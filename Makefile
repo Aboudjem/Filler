@@ -1,22 +1,12 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: plisieck <plisieck@student.42.fr>          +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2015/02/20 14:08:06 by plisieck          #+#    #+#              #
-#    Updated: 2017/03/27 14:35:02 by plisieck         ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
 
-NAME = players/plisieck.filler
+
+NAME = players/aboudjem.filler
 
 SRC_PATH = src/
 OBJ_PATH = obj/
 INC_PATH = includes/
 
-SRC_NAME =  algo.c clean.c clean_utils.c filler.c get_pos.c place.c utils.c norme_get_pos.c
+SRC_NAME =  algo.c clean.c clean_utils.c filler.c get_pos.c place.c get.c norme_get_pos.c
 OBJ_NAME = $(SRC_NAME:.c=.o)
 INC_NAME =  filler.h 
 

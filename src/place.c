@@ -1,14 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   place.c                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: plisieck <marvin@42.fr>                    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/03/26 13:53:55 by plisieck          #+#    #+#             */
-/*   Updated: 2017/03/27 16:16:29 by plisieck         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
 
 #include "filler.h"
 
@@ -72,8 +61,22 @@ int		can_place_piece(t_filler f, t_coord coord)
 		c.x = 0;
 		while (c.x < f.piece.width && (coord.x + f.piece.width <= f.map.width))
 		{
-			if (norme_can_place_piece(f, coord, &c, &touch) == -1)
-				return (0);
+			if (touch > 1)
+				return(0);
+			if (f.piece.piece[c.y][c.x] == '*')
+			{
+				if (f.map.map[coord.y + c.y][coord.x + c.x] == f.players.player)
+					touch ++;
+				else if (f.map.map[coord.y + c.y][coord.x + c.x] == f.players.adv)
+					return (-1);
+				c.x += 1;
+			}
+			else if (f.piece.piece[c.y][c.x] == '.')
+			{
+				if (f.map.map[coord.y + c.y][coord.x + c.x] == f.players.adv)
+					return (-1);
+				c.x += 1;
+			}
 		}
 		c.y++;
 	}

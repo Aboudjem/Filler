@@ -163,8 +163,8 @@ void			get_player(t_players *players);
  **	clean.c
 */
 void			clean_piece(t_piece *piece, int *clean_top, int *clean_left);
-void			get_cleaning_limits(t_piece *p, t_limit *l, int y, int x);
-void			get_cleaning_limits(t_piece *p, t_limit *l, int y, int x);
+void			cleaning_limits(t_piece *p, t_limit *l, int y, int x);
+void			cleaning_limits2(t_piece *p, t_limit *l);
 void			init_coord(t_coord *coord);
 void			get_diff(t_limit *me, t_limit adv);
 

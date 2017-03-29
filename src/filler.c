@@ -1,14 +1,4 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   filler.c                                           :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: aboudjem <marvin@42.fr>                    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/03/09 06:26:05 by aboudjem          #+#    #+#             */
-/*   Updated: 2017/03/27 16:23:17 by plisieck         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
+
 
 #include "filler.h"
 
@@ -17,6 +7,17 @@ void	get_player(t_players *players)
 	char	*line;
 
 	get_next_line(0, &line);
+	if (ft_strncmp("# -----", line, 6) == 0)
+	{
+		while (ft_strncmp("launched players/ab", line, 19) != 0)
+			get_next_line(0, &line);
+		get_next_line(0, &line);
+		if (ft_strncmp(line, "$$$ exec p1", 11) == 0)
+		{
+			get_next_line(0, &line);
+			get_next_line(0, &line);
+		}
+	}
 	players->player = ft_strncmp(line, "$$$ exec p1", 11) == 0 ? 'O' : 'X';
 	players->adv = players->player == 'O' ? 'X' : 'O';
 }
