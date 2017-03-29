@@ -46,6 +46,7 @@ void	clean_piece(t_piece *p, int *clean_top, int *clean_left)
 	int		x;
 	int		y;
 	int		start;
+	char	*tmp;
 
 	x = 0;
 	y = 0;
@@ -60,8 +61,11 @@ void	clean_piece(t_piece *p, int *clean_top, int *clean_left)
 	x = 0;
 	while (x < p->height)
 	{
-		ft_strncpy(p->piece[x], p->piece[start] + l.left, p->width);
-		p->piece[x][p->width] = '\0';
+		//ft_strncpy(p->piece[x], p->piece[start] + l.left, p->width);
+		tmp = ft_strsub(p->piece[start], l.left, p->width);
+		free(p->piece[x]);
+		p->piece[x] = ft_strdup(tmp);
+		free(tmp);
 		start++;
 		x++;
 	}

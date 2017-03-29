@@ -49,6 +49,7 @@ typedef struct	s_piece
 {
 	int		width;
 	int		height;
+	int		original_height;
 	char	**piece;
 }				t_piece;
 
