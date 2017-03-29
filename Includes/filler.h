@@ -42,14 +42,14 @@ typedef	struct	s_map
 
 	int		width;
 	int		height;
-	char	map[100][100];
+	char	**map;
 }				t_map;
 
 typedef struct	s_piece
 {
 	int		width;
 	int		height;
-	char	piece[100][100];
+	char	**piece;
 }				t_piece;
 
 typedef struct	s_players

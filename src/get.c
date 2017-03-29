@@ -8,14 +8,16 @@ void	get_map(t_map *map)
 
 	i = 0;
 	get_size_map(map);
+	map->map = (char **)malloc(sizeof(char *) * map->height + 1);
 	get_next_line(0, &line);
 	while (i < map->height)
 	{
 		get_next_line(0, &line);
-		ft_strcpy(map->map[i], line + 4);
-		free(line);
+		map->map[i] = ft_strdup(line + 4);
+		//free(line);
 		i++;
 	}
+	map->map[i] = NULL;
 }
 
 void	get_size_map(t_map *map)
@@ -33,7 +35,7 @@ void	get_size_map(t_map *map)
 	else
 		exit (-1);
 	map->width = ft_atoi(line + i);
-	free(line);
+	//free(line);
 }
 
 void	get_size_piece(t_piece *piece)
@@ -51,7 +53,7 @@ void	get_size_piece(t_piece *piece)
 	else
 		exit (-1);
 	piece->width = ft_atoi(line + i);
-	free(line);
+	//free(line);
 }
 
 void	get_piece(t_piece *piece)
@@ -61,11 +63,13 @@ void	get_piece(t_piece *piece)
 
 	i = 0;
 	get_size_piece(piece);
+	piece->piece = (char **)(malloc(sizeof(char *) * piece->height + 1));
 	while (i < piece->height)
 	{
 		get_next_line(0, &line);
-		ft_strcpy(piece->piece[i], line);
+		piece->piece[i] = ft_strdup(line);
 		i++;
-		free(line);
+		//free(line);
 	}
+	piece->piece[i] = NULL;
 }

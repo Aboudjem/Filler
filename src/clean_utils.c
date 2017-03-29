@@ -48,10 +48,12 @@ int		line_contain(char *line, char c)
 	int x;
 
 	x = 0;
-	while (line[x])
+	while (line[x] != '\0')
 	{
 		if (line[x] == c)
+		{
 			return (1);
+		}
 		x++;
 	}
 	return (0);

@@ -93,7 +93,7 @@ t_limit	get_limits(t_map *map, char c)
 
 	init_coord(&coord);
 	lim.top = 0;
-	lim.bot = map->height;
+	lim.bot = map->height - 1;
 	lim.left = 0;
 	lim.right = map->width - 1;
 	while (coord.y < map->height)
@@ -107,6 +107,28 @@ t_limit	get_limits(t_map *map, char c)
 	norme_get_limits(&lim, &coord, map, c);
 	return (lim);
 }
+
+void	print_map(char **map)
+{
+	int i = 0;
+	while (map[i])
+	{
+		ft_dprintf(2, "%s\n", map[i++]);
+	}
+}
+
+void	free_map_and_piece(t_filler *f)
+{
+	int i = 0;
+	while (i <= f->piece.height)
+		free(f->piece.piece[i++]);
+	free(f->piece.piece);	
+	i = 0 ;
+	while (i <= f->map.height)
+		free(f->map.map[i++]);
+	free(f->map.map);	
+}
+
 
 int		main(void)
 {
@@ -130,6 +152,7 @@ int		main(void)
 		filler.adv = get_limits(&filler.map, filler.players.adv);
 		filler.p = check_piece(lst, &filler.map);
 		resolve_all(filler, c);
+		free_map_and_piece(&filler);
 	}
 	return (0);
 }
