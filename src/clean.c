@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   clean.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aboudjem <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/03/30 19:08:41 by aboudjem          #+#    #+#             */
+/*   Updated: 2017/03/30 19:14:15 by aboudjem         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "filler.h"
 
@@ -61,7 +72,6 @@ void	clean_piece(t_piece *p, int *clean_top, int *clean_left)
 	x = 0;
 	while (x < p->height)
 	{
-		//ft_strncpy(p->piece[x], p->piece[start] + l.left, p->width);
 		tmp = ft_strsub(p->piece[start], l.left, p->width);
 		free(p->piece[x]);
 		p->piece[x] = ft_strdup(tmp);

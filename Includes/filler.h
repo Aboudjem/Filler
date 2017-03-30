@@ -27,15 +27,18 @@
 /*
  ** COLOR DEFINES
 */
-# define BLACK "\033[30m"
-# define RED "\033[31m"
-# define GREEN "\033[32m"
-# define YELLOW "\033[33m"
-# define BLUE "\033[34m"
-# define MAGENTA "\033[35m"
-# define CYAN "\033[36m"
-# define WHITE "\033[37m"
-# define EOC "\033[0m"
+#define COLOR_DARKBLUE 92
+#define COLOR_GREY 100
+#define COLOR_LIGHT_ORANGE_ 104
+#define COLOR_ORANGE_ 110
+#define COLOR_MAGENTA 116
+#define COLOR_RED_ 122
+#define COLOR_L_L_YELLOW_ 128
+#define COLOR_L_YELLOW 60
+#define COLOR_LIGHT_YELLOW_ 134
+#define COLOR_YELLOW_ 140
+#define COLOR_FULL_YELLOW_ 146
+#define COLOR_PINK 156
 
 typedef	struct	s_map
 {

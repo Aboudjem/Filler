@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get.c                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aboudjem <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/03/30 19:14:30 by aboudjem          #+#    #+#             */
+/*   Updated: 2017/03/30 19:15:27 by aboudjem         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "filler.h"
 
@@ -34,7 +45,7 @@ void	get_size_map(t_map *map)
 		i += ft_len_int(map->height);
 	}
 	else
-		exit (-1);
+		exit(-1);
 	map->width = ft_atoi(line + i);
 	free(line);
 }
@@ -53,7 +64,7 @@ void	get_size_piece(t_piece *piece)
 		i += ft_len_int(piece->height);
 	}
 	else
-		exit (-1);
+		exit(-1);
 	piece->width = ft_atoi(line + i);
 	free(line);
 }

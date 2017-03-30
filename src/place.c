@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   place.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aboudjem <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/03/30 19:34:20 by aboudjem          #+#    #+#             */
+/*   Updated: 2017/03/30 19:52:01 by aboudjem         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "filler.h"
 
@@ -30,25 +41,6 @@ void	start(t_players *players, t_map map, int *first_time)
 	*first_time = 1;
 }
 
-int		norme_can_place_piece(t_filler f, t_coord coord, t_coord *c, int *touch)
-{
-	if (f.piece.piece[c->y][c->x] == '*')
-	{
-		if (f.map.map[coord.y + c->y][coord.x + c->x] == f.players.player)
-			*touch += 1;
-		else if (f.map.map[coord.y + c->y][coord.x + c->x] == f.players.adv)
-			return (-1);
-		c->x += 1;
-	}
-	else if (f.piece.piece[c->y][c->x] == '.')
-	{
-		if (f.map.map[coord.y + c->y][coord.x + c->x] == f.players.adv)
-			return (-1);
-		c->x += 1;
-	}
-	return (0);
-}
-
 int		can_place_piece(t_filler f, t_coord coord)
 {
 	t_coord c;
@@ -62,21 +54,19 @@ int		can_place_piece(t_filler f, t_coord coord)
 		while (c.x < f.piece.width && (coord.x + f.piece.width <= f.map.width))
 		{
 			if (touch > 1)
-				return(0);
+				return (0);
 			if (f.piece.piece[c.y][c.x] == '*')
 			{
 				if (f.map.map[coord.y + c.y][coord.x + c.x] == f.players.player)
-					touch ++;
-				else if (f.map.map[coord.y + c.y][coord.x + c.x] == f.players.adv)
+					touch++;
+				else if (f.map.map[coord.y + c.y][coord.x + c.x] ==
+						f.players.adv)
 					return (-1);
-				c.x += 1;
 			}
-			else if (f.piece.piece[c.y][c.x] == '.')
-			{
-				if (f.map.map[coord.y + c.y][coord.x + c.x] == f.players.adv)
-					return (-1);
-				c.x += 1;
-			}
+			else if (f.piece.piece[c.y][c.x] == '.' && f.map.map[coord.y
+					+ c.y][coord.x + c.x] == f.players.adv)
+				return (-1);
+			c.x++;
 		}
 		c.y++;
 	}
