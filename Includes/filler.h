@@ -14,6 +14,7 @@
 # define FILLER_H
 
 # include "../libft/includes/libft.h"
+# include "matchmaker.h"
 # include <stdio.h>
 # include <string.h>
 
@@ -31,7 +32,6 @@
 #define COLOR_GREY 100
 #define COLOR_LIGHT_ORANGE_ 104
 #define COLOR_ORANGE_ 110
-#define COLOR_MAGENTA 116
 #define COLOR_RED_ 122
 #define COLOR_L_L_YELLOW_ 128
 #define COLOR_L_YELLOW 60

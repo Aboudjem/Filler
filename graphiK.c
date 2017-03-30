@@ -2,12 +2,11 @@
 #include <curses.h>
 #include <ncurses.h>
 
-
 void	color_line(char *map, WINDOW *box)
 {
 	int i;
-	i = 0;
 
+	i = 0;
 	while (map[i])
 	{
 		if (map[i] == 'O')
@@ -27,29 +26,6 @@ void	color_line(char *map, WINDOW *box)
 		}
 		i++;
 	}
-	refresh();
-}
-
-void	p1_win(int pair)
-{
-	attron(COLOR_PAIR(pair));
-	printw("\n\n\n\n");
-
-	printw("   ___ ___  _      ___    \n");
-	printw("  / _ <  / | | /| / (_)__ \n");
-	printw(" / ___/ /  | |/ |/ / / _ \\\n");
-	printw("/_/  /_/   |__/|__/_/_//_/\n");
-	refresh();
-}       
-void	p2_win(int pair)
-{
-	attron(COLOR_PAIR(pair));
-	printw("\n   ___  ___    _      ___    ");
-	printw("\n  /  _ \\|_  |  | | /| / (_)__ ");
-	printw("\n / ___/ __/   | |/ |/ / / _ \\");
-	printw("\n/_/  /____/   |__/|__/_/_/\\/_/");
-	printw("\n                             ");
-	refresh();
 }
 
 void	clean_player(char *player)
@@ -67,35 +43,28 @@ void	clean_player(char *player)
 
 void	get_player_name(char *line, WINDOW *title)
 {
-	char *p1;
-	char *p2;
-
-	p1 = NULL;
-	p2 = NULL;
-
+	t_print	print;
+	
 	while (get_next_line(0, &line) > 0)
 	{	
-		// ft_dprintf(2, "--->[%s]<---\n", line);
 		if (ft_strstr(line, "$$$ exec p1 : [players/"))
-			p1 = ft_strdup(line + 23);
+			print.p1 = ft_strdup(line + 23);
 		else if(ft_strstr(line, "$$$ exec p2 : [players/"))
-			{
-			p2 = ft_strdup(line + 23);
+		{
+			print.p2 = ft_strdup(line + 23);
 			break;
-			}
-
+		}
 	}
-	clean_player(p1);
-	clean_player(p2);
+	clean_player(print.p1);
+	clean_player(print.p2);
 	wattron(title,COLOR_PAIR(5));
-	mvwprintw(title, 0, 2, p1);
+	mvwprintw(title, 0, 2, print.p1);
 	wattroff(title,COLOR_PAIR(5));
 	mvwprintw(title, 1, 10, "V.S");
 	wattron(title,COLOR_PAIR(6));
-	mvwprintw(title, 2, 13, p2);
+	mvwprintw(title, 2, 13, print.p2);
 	wattroff(title,COLOR_PAIR(6));
 	wrefresh(title);
-	
 }
 
 void	get_height(char *line, t_coord *c)
@@ -115,7 +84,6 @@ static void             init_colors(void)
 	start_color();
 	init_color(COLOR_WHITE, 1000, 1000, 1000);
 	init_color(COLOR_DARKBLUE, 200, 200, 300);
-	// init_color(COLOR_DARKBLUE, 350, 150, 700);
 	init_color(COLOR_GREY, 300, 300, 300);
 	init_color(COLOR_LIGHT_ORANGE_, 729, 534, 348);
 	init_color(COLOR_ORANGE_, 741, 447, 279);
@@ -129,9 +97,6 @@ static void             init_colors(void)
 	init_color(COLOR_PINK, 1000, 0, 500);
 	init_color(COLOR_GREEN, 0, 1000, 0);
 	init_color(COLOR_RED, 1000, 0, 0);
-
-
-        // init_pair_colors();
 }
 
 static	void				init_pairs(void)
@@ -155,33 +120,40 @@ void    initCurses(void)
 	init_pairs();
 }
 
-t_coord	print_map(char *line, t_coord c, WINDOW *box)
+void	norme_print_map(t_coord c, char *line, WINDOW *box)
 {
 	int tmp;
-	int h;
-	int w;
-	tmp = 1;
-	t_coord score;
-	getmaxyx(stdscr, h, w);
-	box = subwin(stdscr, c.y, c.x*2, (h/2) - c.y, (w/2) - c.x);
 
+	tmp = 1;
+	while(tmp < c.y-1)
+	{
+		get_next_line(0, &line);
+		wmove(box, tmp, 1);
+		color_line(line +4, box);
+		tmp++;
+		wrefresh(box);
+		refresh();
+	}
+	tmp = 1;
+}
+
+t_coord	print_map(char *line, t_coord c, WINDOW *box)
+{
+	t_coord score;
+	int 	h;
+	int 	w;
+	
+	getmaxyx(stdscr, h, w);
+	if (h < 20)
+		box = subwin(stdscr, c.y, c.x*2, (h/2) - c.y, (w/2) - c.x);
+	else
+		box = subwin(stdscr, c.y, c.x*2, 5, 30);
 	wattron(box, COLOR_PAIR(4));
 	wborder(box, '.', '.', '.', '.', '.', '.', '.', '.');
 	while(get_next_line(0, &line) > 0)
 	{
 		if (*line != ' ' && ft_isdigit(*line))
-		{
-			while(tmp < c.y-1)
-			{
-				get_next_line(0, &line);
-				wmove(box, tmp, 1);
-				color_line(line +4, box);
-				tmp++;
-				wrefresh(box);
-				refresh();
-			}
-			tmp = 1;
-		}
+			norme_print_map(c, line, box);
 		else if(ft_strncmp("== O fin", line, 8) == 0)
 		{
 			score.y = ft_atoi(line + 9);

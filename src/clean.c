@@ -51,33 +51,39 @@ void	cleaning_limits(t_piece *p, t_limit *l, int y, int x)
 	cleaning_limits2(p, l);
 }
 
+t_limit	init_limit(int top, int bot, int left, int right)
+{
+	t_limit	l;
+
+	l.top = top;
+	l.bot = bot;
+	l.left = left;
+	l.right = right;
+	return (l);
+}
+
 void	clean_piece(t_piece *p, int *clean_top, int *clean_left)
 {
 	t_limit	l;
-	int		x;
-	int		y;
 	int		start;
 	char	*tmp;
+	t_coord	c;
 
-	x = 0;
-	y = 0;
-	l.top = 0;
-	l.bot = p->height - 1;
-	l.left = 0;
-	l.right = p->width - 1;
-	cleaning_limits(p, &l, y, x);
+	init_coord(&c);
+	l = init_limit(0, p->height -1, 0, p->width -1);
+	cleaning_limits(p, &l, c.y, c.x);
 	p->width = (l.right - l.left) + 1;
 	p->height = (l.bot - l.top) + 1;
 	start = l.top;
-	x = 0;
-	while (x < p->height)
+	c.x = 0;
+	while (c.x < p->height)
 	{
 		tmp = ft_strsub(p->piece[start], l.left, p->width);
-		free(p->piece[x]);
-		p->piece[x] = ft_strdup(tmp);
+		free(p->piece[c.x]);
+		p->piece[c.x] = ft_strdup(tmp);
 		free(tmp);
 		start++;
-		x++;
+		c.x++;
 	}
 	*clean_top = l.top;
 	*clean_left = l.left;
