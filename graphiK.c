@@ -2,27 +2,55 @@
 #include <curses.h>
 #include <ncurses.h>
 
+void		size_map(char *map, t_mapw *mapw)
+{
+	int i;	
+
+	i =	ft_strlen(map);
+
+	if (i < 17)
+	{
+		mapw->o = "OOO";
+		mapw->x = "XXX";
+		mapw->dot = "   ";
+	}
+	else if (i < 26)
+	{
+		mapw->o = "OO";
+		mapw->x = "XX";
+		mapw->dot = "  ";
+	}
+
+	else
+	{
+		mapw->o = "O";
+		mapw->x = "X";
+		mapw->dot = " ";
+	}
+}
+
 void	color_line(char *map, WINDOW *box)
 {
 	int i;
-
+	t_mapw	mapw;
+	size_map(map, &mapw);
 	i = 0;
 	while (map[i])
 	{
 		if (map[i] == 'O')
 		{
 			wattron(box,COLOR_PAIR(1));
-			wprintw(box, "%s", "OO");
+			wprintw(box, "%s", mapw.o);
 		}
 		else if (map[i] == 'X')
 		{
 			wattron(box,COLOR_PAIR(2));
-			wprintw(box,"%s", "XX");
+			wprintw(box,"%s", mapw.x);
 		}
 		else
 		{
 			wattron(box,COLOR_PAIR(3));
-			wprintw(box,"%s", "  ");
+			wprintw(box,"%s", mapw.dot);
 		}
 		i++;
 	}
@@ -44,7 +72,7 @@ void	clean_player(char *player)
 void	get_player_name(char *line, WINDOW *title)
 {
 	t_print	print;
-	
+
 	while (get_next_line(0, &line) > 0)
 	{	
 		if (ft_strstr(line, "$$$ exec p1 : [players/"))
@@ -142,12 +170,12 @@ t_coord	print_map(char *line, t_coord c, WINDOW *box)
 	t_coord score;
 	int 	h;
 	int 	w;
-	
+
 	getmaxyx(stdscr, h, w);
-	if (h < 20)
+	if (c.y < 20)
 		box = subwin(stdscr, c.y, c.x*2, (h/2) - c.y, (w/2) - c.x);
 	else
-		box = subwin(stdscr, c.y, c.x*2, 5, 30);
+		box = subwin(stdscr, c.y, c.x, 5, 5);
 	wattron(box, COLOR_PAIR(4));
 	wborder(box, '.', '.', '.', '.', '.', '.', '.', '.');
 	while(get_next_line(0, &line) > 0)
@@ -194,7 +222,7 @@ int main(void)
 	get_player_name(line, title);
 	get_height(line, &c);
 	score = print_map(line , c, box);
-//	ft_printf("[[%d || %d]]\n", score.y, score.x);
+	//	ft_printf("[[%d || %d]]\n", score.y, score.x);
 	print_score(score, title);
 	sleep(2);
 	endwin();

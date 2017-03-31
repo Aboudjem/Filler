@@ -40,4 +40,11 @@ typedef struct	s_print
 	int		score_p2;
 }				t_print;
 
+typedef struct	s_mapw
+{
+	char	*o;
+	char	*x;
+	char	*dot;
+}				t_mapw;
+
 # endif
