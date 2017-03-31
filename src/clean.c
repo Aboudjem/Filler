@@ -6,7 +6,7 @@
 /*   By: aboudjem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/30 19:08:41 by aboudjem          #+#    #+#             */
-/*   Updated: 2017/03/30 19:14:15 by aboudjem         ###   ########.fr       */
+/*   Updated: 2017/03/31 21:24:26 by aboudjem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,17 +51,6 @@ void	cleaning_limits(t_piece *p, t_limit *l, int y, int x)
 	cleaning_limits2(p, l);
 }
 
-t_limit	init_limit(int top, int bot, int left, int right)
-{
-	t_limit	l;
-
-	l.top = top;
-	l.bot = bot;
-	l.left = left;
-	l.right = right;
-	return (l);
-}
-
 void	clean_piece(t_piece *p, int *clean_top, int *clean_left)
 {
 	t_limit	l;
@@ -70,7 +59,7 @@ void	clean_piece(t_piece *p, int *clean_top, int *clean_left)
 	t_coord	c;
 
 	init_coord(&c);
-	l = init_limit(0, p->height -1, 0, p->width -1);
+	l = init_limit(0, p->height - 1, 0, p->width - 1);
 	cleaning_limits(p, &l, c.y, c.x);
 	p->width = (l.right - l.left) + 1;
 	p->height = (l.bot - l.top) + 1;
@@ -99,10 +88,4 @@ void	get_diff(t_limit *me, t_limit adv)
 		me->diff_x = adv.left - me->right;
 	else
 		me->diff_x = me->left - adv.right;
-}
-
-void	init_coord(t_coord *coord)
-{
-	coord->y = 0;
-	coord->x = 0;
 }
