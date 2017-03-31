@@ -6,7 +6,7 @@
 /*   By: plisieck <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/30 19:37:20 by plisieck          #+#    #+#             */
-/*   Updated: 2017/03/30 19:40:35 by plisieck         ###   ########.fr       */
+/*   Updated: 2017/03/31 18:47:22 by plisieck         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,5 +46,16 @@ typedef struct	s_mapw
 	char	*x;
 	char	*dot;
 }				t_mapw;
+
+typedef struct	s_env
+{
+	char	**players;
+	char	**maps;
+	int		nb_players;
+	int		nb_maps;
+}				t_env;
+
+void	get_available(t_env *e, char *str);
+WINDOW	*init_window(void);
 
 # endif

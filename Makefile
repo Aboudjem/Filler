@@ -6,12 +6,13 @@
 #    By: aboudjem <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/03/30 19:01:00 by aboudjem          #+#    #+#              #
-#    Updated: 2017/03/30 19:01:07 by aboudjem         ###   ########.fr        #
+#    Updated: 2017/03/31 18:54:35 by plisieck         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = players/aboudjem.filler
 GRAPH_NAME = graph
+MATCHMAKER_NAME = matchmaker
 
 SRC_PATH = src
 OBJ_PATH = obj
@@ -19,7 +20,7 @@ INC_PATH = includes
 
 SRC_NAME =  algo.c clean.c clean_utils.c filler.c get_pos.c place.c get.c norme_get_pos.c
 OBJ_NAME = $(SRC_NAME:.c=.o)
-INC_NAME =  filler.h 
+INC_NAME =  filler.h matchmaker.h
 
 CPPFLAGS = -I$(INC_PATH)
 LDFLAGS = -Llibft
@@ -58,6 +59,11 @@ re: fclean all
 graph: graphiK.c
 	@printf "\033[1;36mCompiling [\033[1;33m$(GRAPH_NAME)\033[1;36m]: \033[0m"
 	@$(CC) $(CFLAGS) graphiK.c -o $(GRAPH_NAME) -lcurses $(LDFLAGS) $(LDLIBS)
+	@echo "\033[1;32mDone !\033[0;0m"
+
+matchmaker: matchmaker.c
+	@printf "\033[1;36mCompiling [\033[1;33m$(MATCHMAKER_NAME)\033[1;36m]: \033[0m"
+	@$(CC) $(CFLAGS) matchmaker.c -o $(MATCHMAKER_NAME) -lcurses $(LDFLAGS) $(LDLIBS)
 	@echo "\033[1;32mDone !\033[0;0m"
 
 .PHONY: all, clean, fclean, re

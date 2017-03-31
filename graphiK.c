@@ -4,7 +4,7 @@
 
 void		size_map(char *map, t_mapw *mapw)
 {
-	int i;	
+	int i;
 
 	i =	ft_strlen(map);
 
@@ -20,7 +20,6 @@ void		size_map(char *map, t_mapw *mapw)
 		mapw->x = "XX";
 		mapw->dot = "  ";
 	}
-
 	else
 	{
 		mapw->o = "O";
@@ -69,36 +68,26 @@ void	clean_player(char *player)
 		player[i] = '\0';
 }
 
-void	get_player_name(char *line, WINDOW *title)
+void	get_player_name(char *line, t_print *print)
 {
-	t_print	print;
-
 	while (get_next_line(0, &line) > 0)
-	{	
+	{
 		if (ft_strstr(line, "$$$ exec p1 : [players/"))
-			print.p1 = ft_strdup(line + 23);
+			print->p1 = ft_strdup(line + 23);
 		else if(ft_strstr(line, "$$$ exec p2 : [players/"))
 		{
-			print.p2 = ft_strdup(line + 23);
+			print->p2 = ft_strdup(line + 23);
 			break;
 		}
 	}
-	clean_player(print.p1);
-	clean_player(print.p2);
-	wattron(title,COLOR_PAIR(5));
-	mvwprintw(title, 0, 2, print.p1);
-	wattroff(title,COLOR_PAIR(5));
-	mvwprintw(title, 1, 10, "V.S");
-	wattron(title,COLOR_PAIR(6));
-	mvwprintw(title, 2, 13, print.p2);
-	wattroff(title,COLOR_PAIR(6));
-	wrefresh(title);
+	clean_player(print->p1);
+	clean_player(print->p2);
 }
 
 void	get_height(char *line, t_coord *c)
 {
 	while (get_next_line(0, &line) > 0)
-	{	
+	{
 		if (ft_strstr(line, "Plateau"))
 		{
 			c->y = (ft_atoi(line + 8)) + 1;
@@ -136,7 +125,7 @@ static	void				init_pairs(void)
 	init_pair(5, COLOR_PINK, COLOR_BLACK);
 	init_pair(6, COLOR_GREEN, COLOR_BLACK);
 }
-void    initCurses(void) 
+void    initCurses(void)
 {
 	initscr();
 	cbreak();
@@ -165,17 +154,18 @@ void	norme_print_map(t_coord c, char *line, WINDOW *box)
 	tmp = 1;
 }
 
-t_coord	print_map(char *line, t_coord c, WINDOW *box)
+void	print_map(t_print *print, char *line, t_coord c, WINDOW *box)
 {
-	t_coord score;
 	int 	h;
 	int 	w;
 
 	getmaxyx(stdscr, h, w);
 	if (c.y < 20)
 		box = subwin(stdscr, c.y, c.x*2, (h/2) - c.y, (w/2) - c.x);
+	else if (c.x < 50)    
+		box = subwin(stdscr, c.y, c.x+1, (h/2) - c.y, (w/2) - c.x);
 	else
-		box = subwin(stdscr, c.y, c.x, 5, 5);
+		box = subwin(stdscr, c.y, c.x+1, 10, 35);
 	wattron(box, COLOR_PAIR(4));
 	wborder(box, '.', '.', '.', '.', '.', '.', '.', '.');
 	while(get_next_line(0, &line) > 0)
@@ -183,22 +173,26 @@ t_coord	print_map(char *line, t_coord c, WINDOW *box)
 		if (*line != ' ' && ft_isdigit(*line))
 			norme_print_map(c, line, box);
 		else if(ft_strncmp("== O fin", line, 8) == 0)
-		{
-			score.y = ft_atoi(line + 9);
-		}
+			print->score_p1 = ft_atoi(line + 9);
 		else if(ft_strncmp("== X fin", line, 8) == 0)
-			score.x = ft_atoi(line + 9);
+			print->score_p2 = ft_atoi(line + 9);
 	}
-	return(score);
 }
 
-void	print_score(t_coord score, WINDOW *box)
+void	print_score(t_print print, WINDOW *box)
 {
 	wattron(box,COLOR_PAIR(5));
-	mvwprintw(box, 4, 4, ft_itoa(score.y));
+	mvwprintw(box, 0, 1, print.p1);
+	wattroff(box,COLOR_PAIR(5));
+	mvwprintw(box, 1, 10, "V.S");
+	wattron(box, COLOR_PAIR(6));
+	mvwprintw(box, 2, 13, print.p2);
+	wattroff(box, COLOR_PAIR(6));
+	wattron(box,COLOR_PAIR(5));
+	mvwprintw(box, 1, 4, ft_itoa(print.score_p1));
 	wattroff(box,COLOR_PAIR(5));
 	wattron(box,COLOR_PAIR(6));
-	mvwprintw(box, 5, 13, ft_itoa(score.x));
+	mvwprintw(box, 3, 16, ft_itoa(print.score_p2));
 	wattroff(box,COLOR_PAIR(6));
 	wrefresh(box);
 }
@@ -208,23 +202,20 @@ int main(void)
 	t_coord c;
 	WINDOW *box;
 	WINDOW *title;
-
-	t_coord score;
+	t_print print;
 	char *line;
 	line = NULL;
 	box = NULL;
 	title = NULL;
 	initCurses();
-	attron(COLOR_PAIR(6));
-	border('*', '*', '*', '*', '*', '*', '*', '*' );
 	refresh();
 	title = subwin(stdscr, 25, 40, 5, 5);
-	get_player_name(line, title);
+	get_player_name(line, &print);
+
 	get_height(line, &c);
-	score = print_map(line , c, box);
-	//	ft_printf("[[%d || %d]]\n", score.y, score.x);
-	print_score(score, title);
-	sleep(2);
+	print_map(&print, line , c, box);
+	print_score(print, title);
+	sleep(5);;
 	endwin();
 
 	free(box);
