@@ -12,6 +12,25 @@
 
 #include "filler.h"
 
+
+void	color_map(char *map)
+{
+	int i = 0;
+
+	while (map[i])
+	{
+		if (map[i] == 'O')
+			ft_dprintf(2, "%s%c%s", P1_COLOR, 'O', END);
+		else if (map[i] == 'X')
+			ft_dprintf(2, "%s%c%s", P2_COLOR, 'X', END);
+		else
+			ft_dprintf(2, "%s%c%s", BG_COLOR, '.', END);
+		i++;
+	}
+	ft_putendl_fd("", 2);
+}
+
+
 void	get_map(t_map *map)
 {
 	int		i;
@@ -26,9 +45,13 @@ void	get_map(t_map *map)
 	{
 		get_next_line(0, &line);
 		map->map[i] = ft_strdup(line + 4);
+		if (SETCOLORS == 1)
+			color_map(map->map[i]);
 		free(line);
 		i++;
 	}
+	if (SETCOLORS == 1)
+		ft_putendl_fd("", 2);
 	map->map[i] = NULL;
 }
 
