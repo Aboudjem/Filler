@@ -6,7 +6,7 @@
 /*   By: aboudjem <aboudjem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/11 23:12:24 by aboudjem          #+#    #+#             */
-/*   Updated: 2017/03/08 23:58:53 by aboudjem         ###   ########.fr       */
+/*   Updated: 2017/04/01 21:09:36 by aboudjem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 # include "libft.h"
 # include <stdarg.h>
 # include <stdio.h>
-
 
 typedef struct	s_type
 {

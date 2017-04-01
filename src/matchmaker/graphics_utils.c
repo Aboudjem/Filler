@@ -5,12 +5,12 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: aboudjem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/04/01 18:23:29 by aboudjem          #+#    #+#             */
-/*   Updated: 2017/04/01 18:29:26 by aboudjem         ###   ########.fr       */
+/*   Created: 2017/04/01 20:04:25 by aboudjem          #+#    #+#             */
+/*   Updated: 2017/04/01 20:04:26 by aboudjem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/filler.h"
+#include "../../includes/filler.h"
 #include <curses.h>
 #include <ncurses.h>
 

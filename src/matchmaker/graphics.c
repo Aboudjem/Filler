@@ -6,38 +6,13 @@
 /*   By: aboudjem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/01 18:05:36 by aboudjem          #+#    #+#             */
-/*   Updated: 2017/04/01 18:19:47 by aboudjem         ###   ########.fr       */
+/*   Updated: 2017/04/01 20:04:14 by aboudjem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/filler.h"
+#include "../../includes/filler.h"
 #include <curses.h>
 #include <ncurses.h>
-
-void	size_map(char *map, t_mapw *mapw)
-{
-	int i;
-
-	i = ft_strlen(map);
-	if (i < 17)
-	{
-		mapw->o = "OOO";
-		mapw->x = "XXX";
-		mapw->dot = "   ";
-	}
-	else if (i < 26)
-	{
-		mapw->o = "OO";
-		mapw->x = "XX";
-		mapw->dot = "  ";
-	}
-	else
-	{
-		mapw->o = "O";
-		mapw->x = "X";
-		mapw->dot = " ";
-	}
-}
 
 void	color_line(char *map, WINDOW *box)
 {
@@ -50,62 +25,20 @@ void	color_line(char *map, WINDOW *box)
 	{
 		if (map[i] == 'O')
 		{
-			wattron(box, COLOR_PAIR(1));
+			wattron(box, COLOR_PAIR(P1_COLOR_BG));
 			wprintw(box, "%s", mapw.o);
 		}
 		else if (map[i] == 'X')
 		{
-			wattron(box, COLOR_PAIR(2));
+			wattron(box, COLOR_PAIR(P2_COLOR_BG));
 			wprintw(box, "%s", mapw.x);
 		}
 		else
 		{
-			wattron(box, COLOR_PAIR(3));
+			wattron(box, COLOR_PAIR(21));
 			wprintw(box, "%s", mapw.dot);
 		}
 		i++;
-	}
-}
-
-void	clean_player(char *player)
-{
-	int i;
-
-	i = 0;
-	if (player[i])
-		player[i] = player[i] - 32;
-	while (player[i] && player[i] != '.')
-		i++;
-	if (player[i] == '.')
-		player[i] = '\0';
-}
-
-void	get_player_name(char *line, t_print *print)
-{
-	while (get_next_line(0, &line) > 0)
-	{
-		if (ft_strstr(line, "$$$ exec p1 : [players/"))
-			print->p1 = ft_strdup(line + 23);
-		else if (ft_strstr(line, "$$$ exec p2 : [players/"))
-		{
-			print->p2 = ft_strdup(line + 23);
-			break ;
-		}
-	}
-	clean_player(print->p1);
-	clean_player(print->p2);
-}
-
-void	get_height(char *line, t_coord *c)
-{
-	while (get_next_line(0, &line) > 0)
-	{
-		if (ft_strstr(line, "Plateau"))
-		{
-			c->y = (ft_atoi(line + 8)) + 1;
-			c->x = (ft_atoi(line + (ft_len_int(c->y)) + 8)) + 1;
-			break ;
-		}
 	}
 }
 
@@ -128,9 +61,9 @@ void	norme_print_map(t_coord c, char *line, WINDOW *box)
 
 void	print_map(t_print *print, char *line, t_coord c, WINDOW *box)
 {
-	int	h;
-	int	w;
-	
+	int h;
+	int w;
+
 	getmaxyx(stdscr, h, w);
 	if (c.y < 20)
 		box = subwin(stdscr, c.y, c.x * 2, (h / 2) - c.y, (w / 2) - c.x);
@@ -138,7 +71,7 @@ void	print_map(t_print *print, char *line, t_coord c, WINDOW *box)
 		box = subwin(stdscr, c.y, c.x + 1, (h / 2) - c.y, (w / 2) - c.x);
 	else
 		box = subwin(stdscr, c.y, c.x + 1, 10, 35);
-	wattron(box, COLOR_PAIR(4));
+	wattron(box, COLOR_PAIR(2));
 	wborder(box, '.', '.', '.', '.', '.', '.', '.', '.');
 	while (get_next_line(0, &line) > 0)
 	{
@@ -153,19 +86,19 @@ void	print_map(t_print *print, char *line, t_coord c, WINDOW *box)
 
 void	print_score(t_print print, WINDOW *box)
 {
-	wattron(box, COLOR_PAIR(5));
+	wattron(box, COLOR_PAIR(P1_COLOR_TXT));
 	mvwprintw(box, 0, 1, print.p1);
-	wattroff(box, COLOR_PAIR(5));
+	wattroff(box, COLOR_PAIR(P1_COLOR_TXT));
 	mvwprintw(box, 1, 10, "V.S");
-	wattron(box, COLOR_PAIR(6));
-	mvwprintw(box, 2, 13, print.p2);
-	wattroff(box, COLOR_PAIR(6));
-	wattron(box, COLOR_PAIR(5));
-	mvwprintw(box, 1, 4, ft_itoa(print.score_p1));
-	wattroff(box, COLOR_PAIR(5));
-	wattron(box, COLOR_PAIR(6));
-	mvwprintw(box, 3, 16, ft_itoa(print.score_p2));
-	wattroff(box, COLOR_PAIR(6));
+	wattron(box, COLOR_PAIR(P2_COLOR_TXT));
+	mvwprintw(box, 2, 15, print.p2);
+	wattroff(box, COLOR_PAIR(P2_COLOR_TXT));
+	wattron(box, COLOR_PAIR(P1_COLOR_TXT));
+	mvwprintw(box, 1, 1, ft_itoa(print.score_p1));
+	wattroff(box, COLOR_PAIR(P1_COLOR_TXT));
+	wattron(box, COLOR_PAIR(P2_COLOR_TXT));
+	mvwprintw(box, 3, 15, ft_itoa(print.score_p2));
+	wattroff(box, COLOR_PAIR(P2_COLOR_TXT));
 	wrefresh(box);
 }
 
@@ -176,6 +109,7 @@ int		main(void)
 	WINDOW		*title;
 	t_print		print;
 	char		*line;
+
 	line = NULL;
 	box = NULL;
 	title = NULL;

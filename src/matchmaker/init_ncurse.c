@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/filler.h"
+#include "../../includes/filler.h"
 
 void	init_colors(void)
 {
@@ -37,7 +37,7 @@ void	init_pairs(void)
 	init_pair(7, COLOR_JAUNE, COLOR_JAUNE);
 	init_pair(8, COLOR_MAUVE, COLOR_MAUVE);
 	init_pair(9, COLOR_PINK, COLOR_PINK);
-	init_pair(10, COLOR_GREEN, COLOR_BLACK);
+	init_pair(10, COLOR_GREEN, COLOR_GREEN);
 	init_pair(11, COLOR_WHITE, COLOR_BLACK);
 	init_pair(12, COLOR_GREY, COLOR_BLACK);
 	init_pair(13, COLOR_ROUGE, COLOR_BLACK);
@@ -48,6 +48,7 @@ void	init_pairs(void)
 	init_pair(18, COLOR_MAUVE, COLOR_BLACK);
 	init_pair(19, COLOR_PINK, COLOR_BLACK);
 	init_pair(20, COLOR_GREEN, COLOR_BLACK);
+	init_pair(21, COLOR_BLACK, COLOR_BLACK);
 }
 
 void	init_curses(void)

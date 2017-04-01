@@ -3,25 +3,28 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: plisieck <marvin@42.fr>                    +#+  +:+       +#+         #
+#    By: aboudjem <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2017/04/01 17:15:40 by plisieck          #+#    #+#              #
-#    Updated: 2017/04/01 17:15:41 by plisieck         ###   ########.fr        #
+#    Created: 2017/04/01 20:05:52 by aboudjem          #+#    #+#              #
+#    Updated: 2017/04/01 21:30:27 by aboudjem         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = players/plisieck.filler
+NAME = players/aboudjem.filler
 GRAPH_NAME = graph
 MATCHMAKER_NAME = matchmaker
 
 SRC_PATH = src
 OBJ_PATH = obj
 INC_PATH = includes
+MATCHMAKER_PATH = src/matchmaker
 
-SRC_NAME =  algo.c clean.c clean_utils.c filler.c get_pos.c place.c get.c \
+SRC_NAME = algo.c clean.c clean_utils.c filler.c get_pos.c place.c get.c \
 			norme_get_pos.c get2.c init.c
 OBJ_NAME = $(SRC_NAME:.c=.o)
-INC_NAME =  filler.h matchmaker.h
+INC_NAME = filler.h
+GRAPH_FILES = graphics.c graphics_utils.c init_ncurse.c
+MATCHMAKER_FILES = matchmaker.c select.c tools.c init_ncurse.c print_match.c
 
 CPPFLAGS = -I$(INC_PATH)
 LDFLAGS = -Llibft
@@ -33,6 +36,8 @@ CFLAGS = -Werror -Wall -Wextra
 SRC = $(addprefix $(SRC_PATH)/,$(SRC_NAME))
 OBJ = $(addprefix $(OBJ_PATH)/,$(OBJ_NAME))
 INC = $(addprefix $(INC_PATH)/,$(INC_NAME))
+GRAPH = $(addprefix $(MATCHMAKER_PATH)/,$(GRAPH_FILES))
+MATCHMAKER = $(addprefix $(MATCHMAKER_PATH)/,$(MATCHMAKER_FILES))
 
 all: $(NAME)
 
@@ -58,14 +63,16 @@ fclean: clean
 
 re: fclean all
 
-graph: graphics.c init_ncurse.c
+graph: $(GRAPH)
+	@printf "\033[1;36mCompiling [\033[1;33mlibft\033[1;36m]: \033[0m"
+	@make -C libft
 	@printf "\033[1;36mCompiling [\033[1;33m$(GRAPH_NAME)\033[1;36m]: \033[0m"
-	@$(CC) $(CFLAGS) graphics.c init_ncurse.c -o $(GRAPH_NAME) -lcurses $(LDFLAGS) $(LDLIBS)
+	@$(CC) $(CFLAGS) $(GRAPH) -o $(GRAPH_NAME) -lcurses $(LDFLAGS) $(LDLIBS)
 	@echo "\033[1;32mDone !\033[0;0m"
 
-matchmaker: matchmaker.c init_ncurse.c
+matchmaker: graph $(MATCHMAKER)
 	@printf "\033[1;36mCompiling [\033[1;33m$(MATCHMAKER_NAME)\033[1;36m]: \033[0m"
-	@$(CC) $(CFLAGS) matchmaker.c init_ncurse.c -o $(MATCHMAKER_NAME) -lcurses $(LDFLAGS) $(LDLIBS)
+	@$(CC) $(CFLAGS) $(MATCHMAKER) -o $(MATCHMAKER_NAME) -lcurses $(LDFLAGS) $(LDLIBS)
 	@echo "\033[1;32mDone !\033[0;0m"
 
 .PHONY: all, clean, fclean, re

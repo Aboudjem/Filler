@@ -6,17 +6,17 @@
 /*   By: aboudjem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/30 19:14:30 by aboudjem          #+#    #+#             */
-/*   Updated: 2017/03/30 19:15:27 by aboudjem         ###   ########.fr       */
+/*   Updated: 2017/04/01 21:06:17 by aboudjem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "filler.h"
 
-
 void	color_map(char *map)
 {
-	int i = 0;
+	int	i;
 
+	i = 0;
 	while (map[i])
 	{
 		if (map[i] == 'O')
@@ -29,7 +29,6 @@ void	color_map(char *map)
 	}
 	ft_putendl_fd("", 2);
 }
-
 
 void	get_map(t_map *map)
 {
