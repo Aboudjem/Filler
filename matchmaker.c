@@ -20,68 +20,14 @@
 #include <unistd.h>
 #include "includes/matchmaker.h"
 
-static void		init_pair_colors(void)
-{
-	init_pair(1, COLOR_MAGENTA, COLOR_MAGENTA);
-	init_pair(8, COLOR_WHITE, COLOR_DARKBLUE);
-	init_pair(16, COLOR_BLACK, COLOR_ORANGE_);
-	init_pair(32, COLOR_BLACK, COLOR_LIGHT_RED_);
-	init_pair(64, COLOR_BLACK, COLOR_RED_);
-	init_pair(128, COLOR_BLACK, COLOR_L_L_YELLOW_);
-	init_pair(25, COLOR_BLACK, COLOR_L_YELLOW);
-	init_pair(51, COLOR_WHITE, COLOR_MAGENTA);
-	init_pair(102, COLOR_BLACK, COLOR_YELLOW_);
-	init_pair(204, COLOR_BLACK, COLOR_FULL_YELLOW_);
-	init_pair(100, COLOR_GREY, COLOR_DARKBLUE);
-	init_pair(101, COLOR_MAGENTA, COLOR_BLACK);
-	init_pair(102, COLOR_DARKBLUE, COLOR_DARKBLUE);
-	init_pair(2, COLOR_GREEN, COLOR_BLACK);
-	init_pair(3, COLOR_RED, COLOR_DARKBLUE);
-	init_pair(4, COLOR_L_YELLOW, COLOR_DARKBLUE);
-	init_pair(5, COLOR_PINK, COLOR_BLACK);
-	init_pair(6, COLOR_GREEN, COLOR_BLACK);
-}
-
-static void		init_colors(void)
-{
-	start_color();
-	init_color(COLOR_WHITE, 1000, 1000, 1000);
-	init_color(COLOR_DARKBLUE, 100, 100, 150);
-	init_color(COLOR_GREY, 300, 300, 300);
-	init_color(COLOR_LIGHT_ORANGE_, 729, 534, 348);
-	init_color(COLOR_ORANGE_, 741, 447, 279);
-	init_color(COLOR_LIGHT_RED_, 744, 372, 270);
-	init_color(COLOR_RED_, 747, 279, 150);
-	init_color(COLOR_L_L_YELLOW_, 714, 621, 321);
-	init_color(COLOR_L_YELLOW, 723, 624, 225);
-	init_color(COLOR_LIGHT_YELLOW_, 711, 606, 3);
-	init_color(COLOR_YELLOW_, 711, 699, 0);
-	init_color(COLOR_FULL_YELLOW_, 711, 591, 3);
-	init_color(COLOR_MAGENTA, 1000, 459, 1000);
-	init_color(COLOR_PINK, 1000, 0, 500);
-	init_color(COLOR_GREEN, 0, 1000, 0);
-	init_color(COLOR_RED, 1000, 0, 0);
-	init_pair_colors();
-}
-
-void	initCurses(void)
-{
-	initscr();
-	cbreak();
-	curs_set(0);
-	noecho();
-	keypad(stdscr, TRUE);
-	init_colors();
-}
-
 static void	printLogo(WINDOW *menu, int h, int w)
 {
-	attron(COLOR_PAIR(2));
+	attron(COLOR_PAIR(6));
 	mvwprintw(menu, (h / 3), (w / 2) - (40), "____ _ _    _    ____ ____    _  _ ____ ___ ____ _  _ _  _ ____ _  _ ____ ____ ");
 	mvwprintw(menu, (h / 3) + 1, (w / 2) - (40), "|___ | |    |    |___ |__/    |\\/| |__|  |  |    |__| |\\/| |__| |_/  |___ |__/ ");
 	mvwprintw(menu, (h / 3) + 2, (w / 2) - (40), "|    | |___ |___ |___ |  \\    |  | |  |  |  |___ |  | |  | |  | | \\_ |___ |  \\ ");
 	mvwprintw(menu, h - 2, w - 10, "plisieck");
-	attroff(COLOR_PAIR(2));
+	attroff(COLOR_PAIR(6));
 }
 
 static void	print_menu(WINDOW *menu, int choice)
@@ -90,20 +36,20 @@ static void	print_menu(WINDOW *menu, int choice)
 	int		w;
 
 	getmaxyx(stdscr, h, w);
-	wattron(menu, COLOR_PAIR(2));
+	wattron(menu, COLOR_PAIR(6));
 	printLogo(menu, h, w);
 	wborder(menu, '|', '|', '_', '_', '\\', '/', '|', '|');
-	wattroff(menu, COLOR_PAIR(2));
+	wattroff(menu, COLOR_PAIR(6));
 	mvwprintw(menu, (h / 2), (w / 2) - (5), "Select Mode:");
-	(choice == 0 ? wattron(menu, COLOR_PAIR(2)) : 0);
+	(choice == 0 ? wattron(menu, COLOR_PAIR(6)) : 0);
 	mvwprintw(menu, (h / 2 + 1), (w / 2) - (2), "1. Play");
-	(choice == 0 ? wattroff(menu, COLOR_PAIR(2)) : 0);
-	(choice == 1 ? wattron(menu, COLOR_PAIR(2)) : 0);
+	(choice == 0 ? wattroff(menu, COLOR_PAIR(6)) : 0);
+	(choice == 1 ? wattron(menu, COLOR_PAIR(6)) : 0);
 	mvwprintw(menu, (h / 2 + 2), (w / 2) - (2), "2. Configure");
-	(choice == 1 ? wattroff(menu, COLOR_PAIR(2)) : 0);
-	(choice == 2 ? wattron(menu, COLOR_PAIR(2)) : 0);
+	(choice == 1 ? wattroff(menu, COLOR_PAIR(6)) : 0);
+	(choice == 2 ? wattron(menu, COLOR_PAIR(6)) : 0);
 	mvwprintw(menu, (h / 2 + 3), (w / 2) - (2), "3. Quit");
-	(choice == 2 ? wattroff(menu, COLOR_PAIR(2)) : 0);
+	(choice == 2 ? wattroff(menu, COLOR_PAIR(6)) : 0);
 }
 
 static void	print_choosing_player_menu(WINDOW *menu, int choice, char **available_players, char *player) 
@@ -114,33 +60,42 @@ static void	print_choosing_player_menu(WINDOW *menu, int choice, char **availabl
 
 	i = 0;
 	getmaxyx(stdscr, h, w);
-	wattron(menu, COLOR_PAIR(2));
+	wattron(menu, COLOR_PAIR(6));
 	printLogo(menu, h, w);
 	wborder(menu, '|', '|', '_', '_', '\\', '/', '|', '|');
-	wattroff(menu, COLOR_PAIR(2));
+	wattroff(menu, COLOR_PAIR(6));
 	mvwprintw(menu, (h / 2) - 2, (w / 2) - (23), "Select a player for playing as   :", player);
 	if (strcmp(player, "p1") == 0)
-	{
-		wattron(menu, COLOR_PAIR(5));
-		mvwprintw(menu, (h / 2) - 2, (w / 2) + 8, "%s", player);
-		wattroff(menu, COLOR_PAIR(5));
-	}
-	else
 	{
 		wattron(menu, COLOR_PAIR(6));
 		mvwprintw(menu, (h / 2) - 2, (w / 2) + 8, "%s", player);
 		wattroff(menu, COLOR_PAIR(6));
 	}
+	else
+	{
+		wattron(menu, COLOR_PAIR(5));
+		mvwprintw(menu, (h / 2) - 2, (w / 2) + 8, "%s", player);
+		wattroff(menu, COLOR_PAIR(5));
+	}
 	while (available_players[i])
 	{
-		(choice == i ? wattron(menu, COLOR_PAIR(2)) : 0);
+		if (strcmp(player, "p1") == 0)
+		{
+		(choice == i ? wattron(menu, COLOR_PAIR(6)) : 0);
 		mvwprintw(menu, (h / 2 + i), (w / 2) - (8), "%d. %s", i, available_players[i]);
-		(choice == i ? wattroff(menu, COLOR_PAIR(2)) : 0);
+		(choice == i ? wattroff(menu, COLOR_PAIR(6)) : 0);
+	}
+		else if (strcmp(player, "p2") == 0)
+		{
+		(choice == i ? wattron(menu, COLOR_PAIR(5)) : 0);
+		mvwprintw(menu, (h / 2 + i), (w / 2) - (8), "%d. %s", i, available_players[i]);
+		(choice == i ? wattroff(menu, COLOR_PAIR(5)) : 0);
+	}
 		i++;
 	}
-	(choice == i ? wattron(menu, COLOR_PAIR(2)) : 0);
+	(choice == i ? wattron(menu, COLOR_PAIR(6)) : 0);
 	mvwprintw(menu, (h / 2 + i + 1), (w / 2) - 8, "%d. Back", i);
-	(choice == i ? wattroff(menu, COLOR_PAIR(2)) : 0);
+	(choice == i ? wattroff(menu, COLOR_PAIR(6)) : 0);
 }
 
 static void	print_choosing_map_menu(WINDOW *menu, int choice, char **available_maps)
@@ -151,21 +106,21 @@ static void	print_choosing_map_menu(WINDOW *menu, int choice, char **available_m
 
 	i = 0;
 	getmaxyx(stdscr, h, w);
-	wattron(menu, COLOR_PAIR(2));
+	wattron(menu, COLOR_PAIR(6));
 	printLogo(menu, h, w);
 	wborder(menu, '|', '|', '_', '_', '\\', '/', '|', '|');
-	wattroff(menu, COLOR_PAIR(2));
+	wattroff(menu, COLOR_PAIR(6));
 	mvwprintw(menu, (h / 2) - 2, (w / 2) - (10), "Select a map:");
 	while (available_maps[i])
 	{
-		(choice == i ? wattron(menu, COLOR_PAIR(2)) : 0);
+		(choice == i ? wattron(menu, COLOR_PAIR(6)) : 0);
 		mvwprintw(menu, (h / 2 + i), (w / 2) - (8), "%d. %s", i, available_maps[i]);
-		(choice == i ? wattroff(menu, COLOR_PAIR(2)) : 0);
+		(choice == i ? wattroff(menu, COLOR_PAIR(6)) : 0);
 		i++;
 	}
-	(choice == i ? wattron(menu, COLOR_PAIR(2)) : 0);
+	(choice == i ? wattron(menu, COLOR_PAIR(6)) : 0);
 	mvwprintw(menu, (h / 2 + i + 1), (w / 2) - 8, "%d. Back", i);
-	(choice == i ? wattroff(menu, COLOR_PAIR(2)) : 0);
+	(choice == i ? wattroff(menu, COLOR_PAIR(6)) : 0);
 }
 
 int	choose_p1(WINDOW *w, t_env e);
@@ -369,7 +324,7 @@ int		main(void)
 	t_env	e;
 	WINDOW	*win;
 
-	initCurses();
+	init_curses();
 	get_available(&e, "players/");
 	get_available(&e, "maps/");
 	win = init_window();

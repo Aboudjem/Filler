@@ -6,7 +6,7 @@
 /*   By: plisieck <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/30 19:37:20 by plisieck          #+#    #+#             */
-/*   Updated: 2017/03/31 18:47:22 by plisieck         ###   ########.fr       */
+/*   Updated: 2017/04/01 16:56:35 by plisieck         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,5 +57,14 @@ typedef struct	s_env
 
 void	get_available(t_env *e, char *str);
 WINDOW	*init_window(void);
+
+/*
+ **	init_ncurse.c
+*/
+void             init_colors(void);
+void				init_pairs(void);
+void    init_curses(void);
+
+
 
 # endif

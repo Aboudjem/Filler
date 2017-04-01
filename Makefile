@@ -3,14 +3,14 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: aboudjem <marvin@42.fr>                    +#+  +:+       +#+         #
+#    By: plisieck <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2017/03/30 19:01:00 by aboudjem          #+#    #+#              #
-#    Updated: 2017/04/01 16:32:55 by plisieck         ###   ########.fr        #
+#    Created: 2017/04/01 17:15:40 by plisieck          #+#    #+#              #
+#    Updated: 2017/04/01 17:15:41 by plisieck         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = players/aboudjem.filler
+NAME = players/plisieck.filler
 GRAPH_NAME = graph
 MATCHMAKER_NAME = matchmaker
 
@@ -53,18 +53,19 @@ clean:
 fclean: clean
 	@rm -f $(NAME)
 	@rm -f $(GRAPH_NAME)
+	@rm -f $(MATCHMAKER_NAME)
 	@make -C libft fclean
 
 re: fclean all
 
-graph: graphiK.c
+graph: graphics.c init_ncurse.c
 	@printf "\033[1;36mCompiling [\033[1;33m$(GRAPH_NAME)\033[1;36m]: \033[0m"
-	@$(CC) $(CFLAGS) graphiK.c -o $(GRAPH_NAME) -lcurses $(LDFLAGS) $(LDLIBS)
+	@$(CC) $(CFLAGS) graphics.c init_ncurse.c -o $(GRAPH_NAME) -lcurses $(LDFLAGS) $(LDLIBS)
 	@echo "\033[1;32mDone !\033[0;0m"
 
-matchmaker: matchmaker.c
+matchmaker: matchmaker.c init_ncurse.c
 	@printf "\033[1;36mCompiling [\033[1;33m$(MATCHMAKER_NAME)\033[1;36m]: \033[0m"
-	@$(CC) $(CFLAGS) matchmaker.c -o $(MATCHMAKER_NAME) -lcurses $(LDFLAGS) $(LDLIBS)
+	@$(CC) $(CFLAGS) matchmaker.c init_ncurse.c -o $(MATCHMAKER_NAME) -lcurses $(LDFLAGS) $(LDLIBS)
 	@echo "\033[1;32mDone !\033[0;0m"
 
 .PHONY: all, clean, fclean, re
