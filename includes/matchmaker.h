@@ -6,7 +6,7 @@
 /*   By: plisieck <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/30 19:37:20 by plisieck          #+#    #+#             */
-/*   Updated: 2017/04/01 16:56:35 by plisieck         ###   ########.fr       */
+/*   Updated: 2017/04/01 17:49:05 by aboudjem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@
 #include "filler.h"
 
 #define ESCAPE 27
-#define COLOR_DARKBLUE 92
 #define COLOR_GREY 100
 #define COLOR_LIGHT_ORANGE_ 104
 #define COLOR_ORANGE_ 110
