@@ -6,7 +6,7 @@
 #    By: aboudjem <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/03/30 19:01:00 by aboudjem          #+#    #+#              #
-#    Updated: 2017/03/31 18:54:35 by plisieck         ###   ########.fr        #
+#    Updated: 2017/04/01 16:32:55 by plisieck         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,8 @@ SRC_PATH = src
 OBJ_PATH = obj
 INC_PATH = includes
 
-SRC_NAME =  algo.c clean.c clean_utils.c filler.c get_pos.c place.c get.c norme_get_pos.c
+SRC_NAME =  algo.c clean.c clean_utils.c filler.c get_pos.c place.c get.c \
+			norme_get_pos.c get2.c init.c
 OBJ_NAME = $(SRC_NAME:.c=.o)
 INC_NAME =  filler.h matchmaker.h
 

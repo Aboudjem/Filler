@@ -6,7 +6,7 @@
 /*   By: plisieck <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/27 16:26:16 by plisieck          #+#    #+#             */
-/*   Updated: 2017/03/31 14:30:53 by plisieck         ###   ########.fr       */
+/*   Updated: 2017/04/01 16:32:19 by plisieck         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,5 +180,12 @@ int				is_piece_column_empty(t_piece piece, int column, char c);
 int				is_column_empty(t_map map, int column, char c);
 int				line_contain(char *line, char c);
 int				column_contain(t_map map, int column, char c);
+
+/*
+ **	get2.c
+*/
+t_limit	get_limits(t_map *map, char c);
+
+t_limit	init_limit(int top, int bot, int left, int right);
 
 #endif
