@@ -6,7 +6,7 @@
 /*   By: plisieck <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/27 16:26:16 by plisieck          #+#    #+#             */
-/*   Updated: 2017/04/01 21:18:42 by aboudjem         ###   ########.fr       */
+/*   Updated: 2017/04/01 22:45:25 by aboudjem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,9 @@
 /*
  ** CONFIGURATION
 */
-# define SETCOLORS 0
+# define SETCOLORS 1
 # define P1_COLOR CYAN
-# define P2_COLOR WHITE
+# define P2_COLOR RED
 # define BG_COLOR BLUE
 
 # define G_WHITE 1
