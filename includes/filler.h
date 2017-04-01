@@ -6,7 +6,7 @@
 /*   By: plisieck <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/27 16:26:16 by plisieck          #+#    #+#             */
-/*   Updated: 2017/04/01 22:45:25 by aboudjem         ###   ########.fr       */
+/*   Updated: 2017/04/02 01:19:45 by aboudjem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 /*
  ** CONFIGURATION
 */
-# define SETCOLORS 1
+# define SETCOLORS 0
 # define P1_COLOR CYAN
 # define P2_COLOR RED
 # define BG_COLOR BLUE
@@ -154,6 +154,8 @@ typedef struct	s_coord
 {
 	int	x;
 	int y;
+	int p1;
+	int p2;
 }				t_coord;
 
 typedef struct	s_topbot
@@ -260,14 +262,15 @@ t_limit			init_limit(int top, int bot, int left, int right);
 void			init_colors(void);
 void			init_pairs(void);
 void			init_curses(void);
-void			color_line(char *map, WINDOW *box);
+void			color_line(char *map, WINDOW *box, t_coord c);
 void			norme_print_map(t_coord c, char *line, WINDOW *box);
 void			print_map(t_print *print, char *line, t_coord c, WINDOW *box);
-void			print_score(t_print print, WINDOW *box);
+void			print_score(t_print print, WINDOW *box, t_coord c);
 void			size_map(char *map, t_mapw *mapw);
 void			get_player_name(char *line, t_print *print);
 void			clean_player(char *player);
 void			get_height(char *line, t_coord *c);
+int				ft_colors(char *str);
 
 /*
  ** Bonus MatchMaker

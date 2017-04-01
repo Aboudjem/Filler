@@ -6,7 +6,7 @@
 /*   By: aboudjem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/01 18:05:36 by aboudjem          #+#    #+#             */
-/*   Updated: 2017/04/01 20:04:14 by aboudjem         ###   ########.fr       */
+/*   Updated: 2017/04/02 01:42:42 by aboudjem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include <curses.h>
 #include <ncurses.h>
 
-void	color_line(char *map, WINDOW *box)
+void	color_line(char *map, WINDOW *box, t_coord c)
 {
 	int		i;
 	t_mapw	mapw;
@@ -25,12 +25,12 @@ void	color_line(char *map, WINDOW *box)
 	{
 		if (map[i] == 'O')
 		{
-			wattron(box, COLOR_PAIR(P1_COLOR_BG));
+			wattron(box, COLOR_PAIR(c.p1));
 			wprintw(box, "%s", mapw.o);
 		}
 		else if (map[i] == 'X')
 		{
-			wattron(box, COLOR_PAIR(P2_COLOR_BG));
+			wattron(box, COLOR_PAIR(c.p2));
 			wprintw(box, "%s", mapw.x);
 		}
 		else
@@ -51,7 +51,7 @@ void	norme_print_map(t_coord c, char *line, WINDOW *box)
 	{
 		get_next_line(0, &line);
 		wmove(box, tmp, 1);
-		color_line(line + 4, box);
+		color_line(line + 4, box, c);
 		tmp++;
 		wrefresh(box);
 		refresh();
@@ -84,44 +84,48 @@ void	print_map(t_print *print, char *line, t_coord c, WINDOW *box)
 	}
 }
 
-void	print_score(t_print print, WINDOW *box)
+void	print_score(t_print print, WINDOW *box, t_coord c)
 {
-	wattron(box, COLOR_PAIR(P1_COLOR_TXT));
+	wattron(box, COLOR_PAIR(c.p1 + 10));
 	mvwprintw(box, 0, 1, print.p1);
-	wattroff(box, COLOR_PAIR(P1_COLOR_TXT));
+	wattroff(box, COLOR_PAIR(c.p1 + 10));
 	mvwprintw(box, 1, 10, "V.S");
-	wattron(box, COLOR_PAIR(P2_COLOR_TXT));
+	wattron(box, COLOR_PAIR(c.p2 + 10));
 	mvwprintw(box, 2, 15, print.p2);
-	wattroff(box, COLOR_PAIR(P2_COLOR_TXT));
-	wattron(box, COLOR_PAIR(P1_COLOR_TXT));
+	wattroff(box, COLOR_PAIR(c.p2 + 10));
+	wattron(box, COLOR_PAIR(c.p1 + 10));
 	mvwprintw(box, 1, 1, ft_itoa(print.score_p1));
-	wattroff(box, COLOR_PAIR(P1_COLOR_TXT));
-	wattron(box, COLOR_PAIR(P2_COLOR_TXT));
+	wattroff(box, COLOR_PAIR(c.p1 + 10));
+	wattron(box, COLOR_PAIR(c.p2 + 10));
 	mvwprintw(box, 3, 15, ft_itoa(print.score_p2));
-	wattroff(box, COLOR_PAIR(P2_COLOR_TXT));
+	wattroff(box, COLOR_PAIR(c.p2 + 10));
 	wrefresh(box);
 }
 
-int		main(void)
+int		main(int argc, char *argv[])
 {
-	t_coord		c;
 	WINDOW		*box;
 	WINDOW		*title;
 	t_print		print;
 	char		*line;
+	t_coord		c;
 
-	line = NULL;
-	box = NULL;
-	title = NULL;
-	init_curses();
-	refresh();
-	title = subwin(stdscr, 25, 40, 5, 5);
-	get_player_name(line, &print);
-	get_height(line, &c);
-	print_map(&print, line, c, box);
-	print_score(print, title);
-	sleep(5);
-	endwin();
-	free(box);
+	if (argc == 3)
+	{
+		c.p1 = ft_colors(argv[1]);
+		c.p2 = ft_colors(argv[2]);
+		box = NULL;
+		line = NULL;
+		title = NULL;
+		init_curses();
+		title = subwin(stdscr, 25, 40, 5, 5);
+		get_player_name(line, &print);
+		get_height(line, &c);
+		print_map(&print, line, c, box);
+		print_score(print, title, c);
+		sleep(5);
+		endwin();
+		free(box);
+	}
 	return (0);
 }

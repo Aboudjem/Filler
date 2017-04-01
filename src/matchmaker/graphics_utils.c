@@ -6,7 +6,7 @@
 /*   By: aboudjem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/01 20:04:25 by aboudjem          #+#    #+#             */
-/*   Updated: 2017/04/01 20:04:26 by aboudjem         ###   ########.fr       */
+/*   Updated: 2017/04/02 01:43:21 by aboudjem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,4 +79,32 @@ void	size_map(char *map, t_mapw *mapw)
 		mapw->x = "X";
 		mapw->dot = " ";
 	}
+}
+
+int		ft_colors(char *str)
+{
+	int color;
+
+	color = 0;
+	if (ft_strcmp(str, "WHITE") == 0)
+		color = 1;
+	else if (ft_strcmp(str, "GREY") == 0)
+		color = 2;
+	else if (ft_strcmp(str, "RED") == 0)
+		color = 3;
+	else if (ft_strcmp(str, "GREEN") == 0)
+		color = 4;
+	else if (ft_strcmp(str, "BLUE") == 0)
+		color = 5;
+	else if (ft_strcmp(str, "CYAN") == 0)
+		color = 6;
+	else if (ft_strcmp(str, "YELLOW") == 0)
+		color = 7;
+	else if (ft_strcmp(str, "PURPLE") == 0)
+		color = 8;
+	else if (ft_strcmp(str, "PINK") == 0)
+		color = 9;
+	else
+		exit(-1);
+	return (color);
 }
