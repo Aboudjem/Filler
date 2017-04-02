@@ -6,7 +6,7 @@
 #    By: aboudjem <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/04/01 20:05:52 by aboudjem          #+#    #+#              #
-#    Updated: 2017/04/01 21:30:27 by aboudjem         ###   ########.fr        #
+#    Updated: 2017/04/02 05:58:07 by aboudjem         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,8 @@ SRC_NAME = algo.c clean.c clean_utils.c filler.c get_pos.c place.c get.c \
 OBJ_NAME = $(SRC_NAME:.c=.o)
 INC_NAME = filler.h
 GRAPH_FILES = graphics.c graphics_utils.c init_ncurse.c
-MATCHMAKER_FILES = matchmaker.c select.c tools.c init_ncurse.c print_match.c
+MATCHMAKER_FILES = matchmaker.c select.c tools.c init_ncurse.c print_match.c \
+				   configure2.c configure.c
 
 CPPFLAGS = -I$(INC_PATH)
 LDFLAGS = -Llibft
