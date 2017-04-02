@@ -188,6 +188,21 @@ typedef struct	s_filler
 	t_players	players;
 }				t_filler;
 
+typedef struct	s_maker
+{
+	WINDOW *win;
+	t_env e;
+	t_coord c;
+	char *current_player;
+	int h;
+	int w;
+	int choice;
+	int key;
+	char *p1;
+	char *p2;
+	char *map;
+}				t_maker;
+
 /*
  **	algo.c
 */
@@ -278,19 +293,21 @@ int				ft_colors(char *str);
 
 void			norme_get_available(t_env *e, int i, char **tab, char *str);
 void			get_available(t_env *e, char *str);
-int				player_menu2(WINDOW *menu, int choice, char **p, char *player);
-int				display_menu(WINDOW *win, t_env e);
+int				player_menu2(t_maker *m, char *player);
+int				display_menu(t_maker *m);
 void			print_title(WINDOW *menu, int h, int w);
-void			print_menu(WINDOW *menu, int choice);
-void			print_p1_or_p2(WINDOW *menu, char *player, int h, int w);
-void			print_pmenu(WINDOW *menu, int choice, char **p, char *player);
-void			print_choosing_map_menu(WINDOW *menu, int choice, char **m);
-int				choose_p2(WINDOW *win, t_env e, char *p1);
-int				norme_choose_p1(WINDOW *win, t_env e, int choice);
-int				choose_p1(WINDOW *win, t_env e);
+void			print_menu(t_maker *m);
+void			print_p1_or_p2(t_maker *m, char *player);
+void			print_pmenu(t_maker *m, char *player);
+void			print_choosing_map_menu(t_maker *m);
+int				choose_p2(t_maker *m);
+int				norme_choose_p1(t_maker *m);
+int				choose_p1(t_maker *m);
 void			choose_map2(WINDOW *win, t_env e, int choice, t_print players);
-int				choose_map(WINDOW *win, t_env e, char *p1, char *p2);
+int				choose_map(t_maker *m);
 void			free_env(t_env *e);
 WINDOW			*init_window(void);
+void			print_configure(t_maker *m);
+int				configure(t_maker *m);
 
 #endif

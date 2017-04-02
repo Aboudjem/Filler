@@ -49,6 +49,8 @@ void	init_pairs(void)
 	init_pair(19, COLOR_PINK, COLOR_BLACK);
 	init_pair(20, COLOR_GREEN, COLOR_BLACK);
 	init_pair(21, COLOR_BLACK, COLOR_BLACK);
+	init_pair(32, COLOR_BLACK, COLOR_WHITE);
+	init_pair(22, COLOR_WHITE, COLOR_WHITE);
 }
 
 void	init_curses(void)
@@ -57,7 +59,6 @@ void	init_curses(void)
 	cbreak();
 	curs_set(0);
 	noecho();
-	timeout(1);
 	keypad(stdscr, TRUE);
 	init_colors();
 	init_pairs();

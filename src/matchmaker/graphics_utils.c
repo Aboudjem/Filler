@@ -86,7 +86,7 @@ int		ft_colors(char *str)
 	int color;
 
 	color = 0;
-	if (ft_atoi(str) == G_WHITE)
+	if (ft_atoi(str) == G_WHITE || ft_atoi(str) == 22)
 		color = 1;
 	else if (ft_atoi(str) == G_GREY)
 		color = 2;

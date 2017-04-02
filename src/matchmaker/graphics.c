@@ -54,7 +54,6 @@ void	norme_print_map(t_coord c, char *line, WINDOW *box)
 		color_line(line + 4, box, c);
 		tmp++;
 		wrefresh(box);
-		refresh();
 	}
 	tmp = 1;
 }

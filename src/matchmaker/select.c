@@ -17,110 +17,113 @@
 #include <unistd.h>
 #include "../../includes/filler.h"
 
-int		choose_p2(WINDOW *win, t_env e, char *p1)
+int		choose_p2(t_maker *m)
 {
-	int		key;
-	int		choice;
-
-	choice = 0;
-	while ((key = getch()) != 27)
+	m->choice = 0;
+	while ((m->key = getch()) != 27)
 	{
-		choice -= ((key == KEY_UP) && (choice > 0)) ? 1 : 0;
-		choice += ((key == KEY_DOWN) && (choice < e.nb_players)) ? 1 : 0;
-		if (key == ' ' || key == '\n')
+		m->choice -= ((m->key == KEY_UP) && (m->choice > 0)) ? 1 : 0;
+		m->choice += ((m->key == KEY_DOWN) &&
+		(m->choice < m->e.nb_players)) ? 1 : 0;
+		if (m->key == ' ' || m->key == '\n')
 		{
-			if (choice == e.nb_players)
+			if (m->choice == m->e.nb_players)
 				endwin();
 			else
-				choose_map(win, e, p1, strdup(e.players[choice]));
+			{
+				m->p2 = strdup(m->e.players[m->choice]);
+				choose_map(m);
+			}
 			return (0);
 		}
-		print_pmenu(win, choice, e.players, "p2");
-		wrefresh(win);
+		print_pmenu(m, "p2");
+		wrefresh(m->win);
 	}
-	wclear(win);
+	wclear(m->win);
 	endwin();
 	return (0);
 }
 
-int		norme_choose_p1(WINDOW *win, t_env e, int choice)
+int		norme_choose_p1(t_maker *m)
 {
-	if (choice == e.nb_players)
+	if (m->choice == m->e.nb_players)
 	{
-		wclear(win);
+		wclear(m->win);
 		endwin();
 		return (1);
 	}
 	else
 	{
-		wclear(win);
-		choose_p2(win, e, strdup(e.players[choice]));
+		wclear(m->win);
+		m->p1 = strdup(m->e.players[m->choice]);
+		choose_p2(m);
 	}
 	return (0);
 }
 
-int		choose_p1(WINDOW *win, t_env e)
+int		choose_p1(t_maker *m)
 {
-	int		key;
-	int		choice;
-
-	choice = 0;
-	while ((key = getch()) != ESCAPE)
+	m->choice = 0;
+	while ((m->key = getch()) != ESCAPE)
 	{
-		choice -= ((key == KEY_UP) && (choice > 0)) ? 1 : 0;
-		choice += ((key == KEY_DOWN) && (choice < e.nb_players)) ? 1 : 0;
-		if (key == ' ' || key == '\n')
-			if (norme_choose_p1(win, e, choice) == 1)
+		m->choice -= ((m->key == KEY_UP) && (m->choice > 0)) ? 1 : 0;
+		m->choice += ((m->key == KEY_DOWN)
+		&& (m->choice < m->e.nb_players)) ? 1 : 0;
+		if (m->key == ' ' || m->key == '\n')
+			if (norme_choose_p1(m) == 1)
+			{
+				m->choice = 0;
 				return (0);
-		print_pmenu(win, choice, e.players, "p1");
-		wrefresh(win);
+			}
+		print_pmenu(m, "p1");
+		wrefresh(m->win);
 	}
-	wclear(win);
+	wclear(m->win);
 	endwin();
 	return (0);
 }
 
-void	norme_choose_map(WINDOW *win, t_env e, int choice, t_print players)
+void	norme_choose_map(t_maker *m, t_print players)
 {
 	char	*command;
 
-	if (choice == e.nb_maps)
+	if (m->choice == m->e.nb_maps)
 	{
-		choose_p2(win, e, strdup(e.players[choice]));
+		m->p1 = strdup(m->e.players[m->choice]);
+		choose_p2(m);
 		endwin();
 	}
 	else
 	{
 		asprintf(&command,
-	"./filler_vm -f maps/%s -p1 players/%s -p2 players/%s | ./graph",
-strdup(e.maps[choice]), players.p1, players.p2);
+	"./filler_vm -f maps/%s -p1 players/%s -p2 players/%s | ./graph %d %d",
+strdup(m->e.maps[m->choice]), players.p1, players.p2, m->c.p1, m->c.p2);
 		system(command);
 		endwin();
 	}
 }
 
-int		choose_map(WINDOW *win, t_env e, char *p1, char *p2)
+int		choose_map(t_maker *m)
 {
-	int		key;
-	int		choice;
 	t_print	players;
 
-	choice = 0;
-	while ((key = getch()) != 27)
+	m->choice = 0;
+	while ((m->key = getch()) != 27)
 	{
-		choice -= ((key == KEY_UP) && (choice > 0)) ? 1 : 0;
-		choice += ((key == KEY_DOWN) && (choice < e.nb_maps)) ? 1 : 0;
-		if (key == ' ' || key == '\n')
+		m->choice -= ((m->key == KEY_UP) && (m->choice > 0)) ? 1 : 0;
+		m->choice += ((m->key == KEY_DOWN) &&
+		(m->choice < m->e.nb_maps)) ? 1 : 0;
+		if (m->key == ' ' || m->key == '\n')
 		{
-			players.p1 = p1;
-			players.p2 = p2;
-			norme_choose_map(win, e, choice, players);
+			players.p1 = m->p1;
+			players.p2 = m->p2;
+			norme_choose_map(m, players);
 			return (0);
 		}
-		print_choosing_map_menu(win, choice, e.maps);
-		wrefresh(win);
+		print_choosing_map_menu(m);
+		wrefresh(m->win);
 	}
-	wclear(win);
+	wclear(m->win);
 	endwin();
 	return (0);
 }

@@ -17,57 +17,55 @@
 #include <unistd.h>
 #include "../../includes/filler.h"
 
-int		player_menu2(WINDOW *menu, int choice, char **p, char *player)
+int		player_menu2(t_maker *m, char *player)
 {
 	int i;
-	int h;
-	int w;
 
-	getmaxyx(stdscr, h, w);
 	i = 0;
-	while (p[i])
+	while (m->e.players[i])
 	{
 		if (strcmp(player, "p1") == 0)
 		{
-			(choice == i ? wattron(menu, COLOR_PAIR(P1_COLOR_TXT)) : 0);
-			mvwprintw(menu, (h / 2 + i), (w / 2) - (8), "%d. %s", i, p[i]);
-			(choice == i ? wattroff(menu, COLOR_PAIR(P1_COLOR_TXT)) : 0);
+			(m->choice == i ? wattron(m->win, COLOR_PAIR(m->c.p1 + 10)) : 0);
+			mvwprintw(m->win, (m->h / 2 + i),
+			(m->w / 2) - (8), "%d. %s", i, m->e.players[i]);
+			(m->choice == i ? wattroff(m->win, COLOR_PAIR(m->c.p1 + 10)) : 0);
 		}
 		else if (strcmp(player, "p2") == 0)
 		{
-			(choice == i ? wattron(menu, COLOR_PAIR(P2_COLOR_TXT)) : 0);
-			mvwprintw(menu, (h / 2 + i), (w / 2) - (8), "%d. %s", i, p[i]);
-			(choice == i ? wattroff(menu, COLOR_PAIR(P2_COLOR_TXT)) : 0);
+			(m->choice == i ? wattron(m->win, COLOR_PAIR(m->c.p2 + 10)) : 0);
+			mvwprintw(m->win, (m->h / 2 + i),
+			(m->w / 2) - (8), "%d. %s", i, m->e.players[i]);
+			(m->choice == i ? wattroff(m->win, COLOR_PAIR(m->c.p2 + 10)) : 0);
 		}
 		i++;
 	}
 	return (i);
 }
 
-int		display_menu(WINDOW *win, t_env e)
+int		display_menu(t_maker *m)
 {
-	int		key;
-	int		choice;
-
-	choice = 0;
+	m->choice = 0;
 	timeout(30);
-	while ((key = getch()) != ESCAPE)
+	while ((m->key = getch()) != ESCAPE)
 	{
-		choice -= ((key == KEY_UP) && (choice > 0)) ? 1 : 0;
-		choice += ((key == KEY_DOWN) && (choice < 2)) ? 1 : 0;
-		if (key == ' ' || key == '\n')
+		m->choice -= ((m->key == KEY_UP) && (m->choice > 0)) ? 1 : 0;
+		m->choice += ((m->key == KEY_DOWN) && (m->choice < 2)) ? 1 : 0;
+		if (m->key == ' ' || m->key == '\n')
 		{
-			wclear(win);
-			if (choice == 0)
-				choose_p1(win, e);
-			else if (choice == 1 || choice == 2)
+			wclear(m->win);
+			if (m->choice == 0)
+				choose_p1(m);
+			else if (m->choice == 1)
+				configure(m);
+			else if (m->choice == 2)
 			{
 				endwin();
 				return (0);
 			}
 		}
-		print_menu(win, choice);
-		wrefresh(win);
+		print_menu(m);
+		wrefresh(m->win);
 	}
 	endwin();
 	return (0);
@@ -115,14 +113,15 @@ void	get_available(t_env *e, char *str)
 
 int		main(void)
 {
-	t_env	e;
-	WINDOW	*win;
+	t_maker	m;
 
+	m.c.p1 = G_GREEN;
+	m.c.p2 = G_PINK;
 	init_curses();
-	get_available(&e, "players/");
-	get_available(&e, "maps/");
-	win = init_window();
-	display_menu(win, e);
-	free_env(&e);
+	get_available(&m.e, "players/");
+	get_available(&m.e, "maps/");
+	m.win = init_window();
+	display_menu(&m);
+	free_env(&m.e);
 	return (0);
 }
