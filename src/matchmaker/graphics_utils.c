@@ -86,23 +86,23 @@ int		ft_colors(char *str)
 	int color;
 
 	color = 0;
-	if (ft_strcmp(str, "WHITE") == 0)
+	if (ft_atoi(str) == G_WHITE)
 		color = 1;
-	else if (ft_strcmp(str, "GREY") == 0)
+	else if (ft_atoi(str) == G_GREY)
 		color = 2;
-	else if (ft_strcmp(str, "RED") == 0)
+	else if (ft_atoi(str) == G_ROUGE)
 		color = 3;
-	else if (ft_strcmp(str, "GREEN") == 0)
+	else if (ft_atoi(str) == G_GREEN)
 		color = 4;
-	else if (ft_strcmp(str, "BLUE") == 0)
+	else if (ft_atoi(str) == G_DARKBLUE)
 		color = 5;
-	else if (ft_strcmp(str, "CYAN") == 0)
+	else if (ft_atoi(str) == G_CYAN)
 		color = 6;
-	else if (ft_strcmp(str, "YELLOW") == 0)
+	else if (ft_atoi(str) == G_JAUNE)
 		color = 7;
-	else if (ft_strcmp(str, "PURPLE") == 0)
+	else if (ft_atoi(str) == G_MAUVE)
 		color = 8;
-	else if (ft_strcmp(str, "PINK") == 0)
+	else if (ft_atoi(str) == G_PINK)
 		color = 9;
 	else
 		exit(-1);
