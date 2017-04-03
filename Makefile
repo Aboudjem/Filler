@@ -6,11 +6,11 @@
 #    By: aboudjem <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/04/01 20:05:52 by aboudjem          #+#    #+#              #
-#    Updated: 2017/04/02 05:58:07 by aboudjem         ###   ########.fr        #
+#    Updated: 2017/04/03 22:39:28 by aboudjem         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = players/aboudjem.filler
+NAME = aboudjem.filler
 GRAPH_NAME = graph
 MATCHMAKER_NAME = matchmaker
 

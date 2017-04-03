@@ -6,15 +6,10 @@
 /*   By: aboudjem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/01 20:04:40 by aboudjem          #+#    #+#             */
-/*   Updated: 2017/04/01 21:16:26 by aboudjem         ###   ########.fr       */
+/*   Updated: 2017/04/02 18:15:57 by aboudjem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <curses.h>
-#include <stdlib.h>
-#include <string.h>
-#include <dirent.h>
-#include <unistd.h>
 #include "../../includes/filler.h"
 
 void	print_title(WINDOW *menu, int h, int w)
@@ -29,7 +24,7 @@ void	print_title(WINDOW *menu, int h, int w)
 	mvwprintw(menu, (h / 3) + 2, (w / 2) - 40, "|    | |___ |___ |___ |  \\ ");
 	mvwprintw(menu, (h / 3) + 2, (w / 2) - 13, "   |  | |  |  |  |___ |  | |");
 	mvwprintw(menu, (h / 3) + 2, (w / 2) + 15, "  | |  | | \\_ |___ |  \\ ");
-	mvwprintw(menu, h - 2, w - 10, "plisieck");
+	mvwprintw(menu, h - 2, w - 10, "Aboudjem");
 	attroff(COLOR_PAIR(P1_COLOR_TXT));
 }
 

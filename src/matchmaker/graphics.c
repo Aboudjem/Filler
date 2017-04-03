@@ -6,13 +6,11 @@
 /*   By: aboudjem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/01 18:05:36 by aboudjem          #+#    #+#             */
-/*   Updated: 2017/04/02 01:42:42 by aboudjem         ###   ########.fr       */
+/*   Updated: 2017/04/02 18:14:36 by aboudjem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/filler.h"
-#include <curses.h>
-#include <ncurses.h>
 
 void	color_line(char *map, WINDOW *box, t_coord c)
 {

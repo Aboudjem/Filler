@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   filler.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plisieck <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: aboudjem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/03/27 16:26:16 by plisieck          #+#    #+#             */
-/*   Updated: 2017/04/02 01:19:45 by aboudjem         ###   ########.fr       */
+/*   Created: 2017/04/02 18:31:04 by aboudjem          #+#    #+#             */
+/*   Updated: 2017/04/02 18:31:05 by aboudjem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include <string.h>
 # include <dirent.h>
 # include <unistd.h>
+# include <ncurses.h>
 
 /*
  ** CONFIGURATION
@@ -190,17 +191,17 @@ typedef struct	s_filler
 
 typedef struct	s_maker
 {
-	WINDOW *win;
-	t_env e;
-	t_coord c;
-	char *current_player;
-	int h;
-	int w;
-	int choice;
-	int key;
-	char *p1;
-	char *p2;
-	char *map;
+	WINDOW		*win;
+	t_env		e;
+	t_coord		c;
+	char		*current_player;
+	int			h;
+	int			w;
+	int			choice;
+	int			key;
+	char		*p1;
+	char		*p2;
+	char		*map;
 }				t_maker;
 
 /*

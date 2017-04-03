@@ -6,15 +6,10 @@
 /*   By: aboudjem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/01 20:04:36 by aboudjem          #+#    #+#             */
-/*   Updated: 2017/04/01 21:24:15 by aboudjem         ###   ########.fr       */
+/*   Updated: 2017/04/02 18:37:07 by aboudjem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <curses.h>
-#include <stdlib.h>
-#include <string.h>
-#include <dirent.h>
-#include <unistd.h>
 #include "../../includes/filler.h"
 
 int		player_menu2(t_maker *m, char *player)
@@ -105,7 +100,7 @@ void	get_available(t_env *e, char *str)
 	}
 	else
 	{
-		printf("\033[1;31mError:\033[0;0m Could not open directory: %s\n", str);
+		ft_printf("\033[1;31mError:\033[0;0m Could not open dir: %s\n", str);
 		exit(0);
 	}
 	norme_get_available(e, i, tab, str);

@@ -6,13 +6,11 @@
 /*   By: aboudjem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/01 20:04:25 by aboudjem          #+#    #+#             */
-/*   Updated: 2017/04/02 01:43:21 by aboudjem         ###   ########.fr       */
+/*   Updated: 2017/04/02 18:14:29 by aboudjem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/filler.h"
-#include <curses.h>
-#include <ncurses.h>
 
 void	clean_player(char *player)
 {

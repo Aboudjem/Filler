@@ -6,15 +6,10 @@
 /*   By: aboudjem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/01 20:04:44 by aboudjem          #+#    #+#             */
-/*   Updated: 2017/04/01 20:04:45 by aboudjem         ###   ########.fr       */
+/*   Updated: 2017/04/02 18:16:08 by aboudjem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <curses.h>
-#include <stdlib.h>
-#include <string.h>
-#include <dirent.h>
-#include <unistd.h>
 #include "../../includes/filler.h"
 
 int		choose_p2(t_maker *m)
